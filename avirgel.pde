@@ -36,11 +36,14 @@ int sliderWidth = 0;
 int sliderSpacing = 0;
 int sliderY = 0;
 
+int buttonSpacing = 0;
+int buttonSize = 0;
+int buttonMargin = 0;
 
 void setup() {
   orientation(PORTRAIT);
- size(displayWidth,displayHeight);
-
+  size(displayWidth,displayHeight);
+  
 
  cp5 = new ControlP5(this);
  PFont font = createFont("arial",30);
@@ -52,10 +55,14 @@ void setup() {
  barSpacing = displayHeight / 8;
  barWidth = int(displayWidth * .8);
  
+ buttonSpacing = int(displayWidth * 0.05);
+ buttonSize = int(displayWidth * 0.1);
+ buttonMargin = int((displayWidth - (6*buttonSize + 5*buttonSpacing))/2);
+ 
 // sliderY = int(displayHeight*0.5); 
  sliderHeight = displayHeight/15;
  sliderWidth = int(displayWidth*.75);
- sliderSpacing = displayHeight / 20;
+ sliderSpacing = int(displayHeight * 0.05);
 
  addButtons(int(displayHeight*0.45));
  addSliders(int(displayHeight*0.55));
@@ -81,8 +88,24 @@ void draw() {
   showEnergyAndPower(int(displayHeight * 0.1));
   showInstructions();
   showSlideSpace();
+  showButtonLabels(int(displayHeight * 0.53));
 
 }
+
+
+void showButtonLabels(int Y){
+  String[] buttonLabels = {"WC","TC","SWC","RN","RB","MSH"};
+  fill(0);
+  textSize(25);
+  for(int i = 0; i<buttonLabels.length; i++){
+  int xPos = buttonMargin + i*(buttonSize+buttonSpacing);
+  text(buttonLabels[i],xPos,Y);
+  }
+    
+}
+
+
+
 
 
 void showInstructions(){
@@ -173,14 +196,14 @@ void addButtons(int Y)
   
      r1 = cp5.addRadioButton("noseButton")
          .setPosition(leftMargin/2,Y)
-         .setSize(50,50)
+         .setSize(buttonSize,buttonSize)
  //       .setFont(font)
          .setColorForeground(color(#F0B5B5))
          .setColorBackground(color(255))
          .setColorActive(color(#F5839E))
          .setColorLabel(color(0))
          .setItemsPerRow(6)
-         .setSpacingColumn(60)
+         .setSpacingColumn(buttonSpacing)
          .addItem("wc",1)            
          .addItem("tc",2)
          .addItem("sw",3)
@@ -190,11 +213,17 @@ void addButtons(int Y)
          ;
      
      for(Toggle t:r1.getItems()) {
-       t.getCaptionLabel().setColorBackground(color(255,#E5DADA));
-       t.getCaptionLabel().getStyle().moveMargin(-7,0,0,-3);
-       t.getCaptionLabel().getStyle().movePadding(7,0,0,3);
-       t.getCaptionLabel().getStyle().backgroundWidth = 45;
-       t.getCaptionLabel().getStyle().backgroundHeight = 13;
+  //     t.getCaptionLabel().setColorBackground(color(255,#E5DADA));
+  //     t.getCaptionLabel().getStyle().moveMargin(-7,0,0,-3);
+  //     t.getCaptionLabel().getStyle().movePadding(7,0,0,3);
+ //      t.getCaptionLabel().getStyle().backgroundWidth = 45;
+  //     t.getCaptionLabel().getStyle().backgroundHeight = 13;
+         t.setLabel(""); 
+
+       
+       
+       
+       
      }
      r1.activate(0);
   
