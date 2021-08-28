@@ -1,5 +1,9 @@
 
-/* virgel for android 8/25/2021 edition */
+/* virgel for android 8/28/2021 edition 
+   added orientation to hold screen in 
+   portrait mode
+*/
+
 
 
 String title = "VIRGEL Isn't Really GELLO";
@@ -102,7 +106,7 @@ void showInstructions(){
     int W = sliderWidth;
     int H = int(sliderHeight*1.5);
     
-    fill(128);
+    fill(118);
     rect(X,Y,W,H);
   }  
   
