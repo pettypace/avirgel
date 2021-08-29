@@ -1,10 +1,5 @@
 
-/* virgel for android 8/28/2021 edition 
-   added orientation to hold screen in 
-   portrait mode
-*/
-
-
+// Android version as of 29 August 2021
 
 String title = "VIRGEL Isn't Really GELLO";
 import controlP5.*; // import controlP5 library
@@ -60,18 +55,12 @@ void setup() {
  buttonMargin = int((displayWidth - (6*buttonSize + 5*buttonSpacing))/2);
  
 // sliderY = int(displayHeight*0.5); 
- sliderHeight = int(displayHeight * 0.07);
+ sliderHeight = int(displayHeight * 0.04);
  sliderWidth = int(displayWidth * .75);
- sliderSpacing = int(displayHeight * 0.03);
+ sliderSpacing = int(displayHeight * 0.02);
 
  addButtons(int(displayHeight*0.50));
- addSliders(int(displayHeight*0.65));
- 
-
- 
-
- 
- 
+ addSliders(int(displayHeight*0.70)); 
 
 }
  
@@ -86,9 +75,10 @@ void draw() {
   drawBarGraph(leftMargin,int(displayHeight*0.300),wtiWoundMass,"MacPherson WTI Wound Mass (g)");  
 //  drawBarGraph(leftMargin,barSpacing*3,pcWoundMass,"PC VOL (cc)"); 
   showBulletParameters(int(displayHeight * 0.1));
-  showInstructions();
+//  showInstructions();
   showButtonLabels(int(displayHeight * 0.56));
-  showSlideSpace();
+  showButtonInstructions(int(displayHeight*0.48));
+  showSlideSpace(int(displayHeight*0.60));
 
 }
 
@@ -109,21 +99,22 @@ void showButtonLabels(int Y){
 
 
 
-void showInstructions(){
+void showButtonInstructions(int Y){
   String text1 = "Double tap button to select nose shape:";
-  String text2 = "Tap graph, then slide in gray box to adjust:";
+//  String text2 = "Tap graph, then slide in this box:";
   textAlign(CENTER);
   textSize(30);
-  text(text1, displayWidth/2,displayHeight*0.48);
-  text(text2, displayWidth/2,displayHeight*0.62);
+//  text(text1, displayWidth/2,displayHeight*0.48);
+  text(text1, displayWidth/2,Y);
+//  text(text2, displayWidth/2,displayHeight*0.62);
 }
   
 
 
 
-  void showSlideSpace(){
+  void showSlideSpace(int Y){
     int X = leftMargin+50;
-    int Y = int(displayHeight*0.95);
+ //   int Y = int(displayHeight*0.95);
     int W = sliderWidth;
     int H = int(sliderHeight);
     
@@ -146,28 +137,37 @@ void showInstructions(){
   }
 
 void showTitle(int Y){
-//  int fontSize = displaywidth/25;
+  int fontSize = int(displayWidth/15);
   fill(0);
   textAlign(CENTER);
   
-  textSize(50);
+  textSize(fontSize);
   //  textSize(fontSize);
   text(title, displayWidth/2,Y);
 }  
 
 void showBulletParameters(int Y){
+
+  String data = "";
+  
+  float D = Math.round(diameter*100)/100;
+  D = diameter;
+  String dia = String.format("%.02f", D);
+  
+
+
   int powerFactor = weight * velocity /1000;
   fill(0);
   textAlign(CENTER);
   textSize(36);
   
-  String data1 = weight + " gr " + nose + ",  Dia: " + diameter + " in,  Vel:  " + velocity + " ft/s";
-  text(data1,displayWidth/2,Y);  
+  data = weight + " gr " + nose + ",  Dia: " + dia + " in,  Vel:  " + velocity + " ft/s";
+  text(data,displayWidth/2,Y);  
   
   
-  String data2 = "Energy: " + String.valueOf(Math.round(energy))+" ft-lb"
-       + "   Power Factor:" + String.valueOf(powerFactor);
-  text(data2,displayWidth/2,Y+50); 
+  data = "Energy: " + String.valueOf(Math.round(energy))+" ft-lb"
+       + "   Power Factor: " + String.valueOf(powerFactor);
+  text(data,displayWidth/2,Y+50); 
   
   
 
@@ -221,11 +221,7 @@ void addButtons(int Y)
   //     t.getCaptionLabel().getStyle().movePadding(7,0,0,3);
  //      t.getCaptionLabel().getStyle().backgroundWidth = 45;
   //     t.getCaptionLabel().getStyle().backgroundHeight = 13;
-         t.setLabel(""); 
-
-       
-       
-       
+         t.setLabel("");     
        
      }
      r1.activate(0);
@@ -241,10 +237,11 @@ void addSliders(int Y)
 {
 
 
-Slider S1 =  cp5.addSlider("diameterSlider")
+Slider S1 =  cp5.addSlider("Diameter")
        .setPosition(leftMargin+50, Y)
        .setSize(sliderWidth,sliderHeight)
-       .setRange(0.2, 1.0)
+       .setNumberOfTickMarks(101)
+       .setRange(0.20, 1.00)
        .setValue(.35)
        .setLabel("Dia")
        .setColorCaptionLabel(color(0))
@@ -252,16 +249,26 @@ Slider S1 =  cp5.addSlider("diameterSlider")
        .setColorActive(color(#F0B5B5)) 
        .setColorForeground(color(#F5839E))
        .setColorBackground(color(255, 255, 255));
-       Label label1 = S1.getCaptionLabel(); 
+     Label label1 = S1.getCaptionLabel() 
  //      label1.setFont(font1);
-       label1.toUpperCase(false);
-       label1.setText("DIA"); // to update upperCase state
-       label1.align(ControlP5.LEFT_OUTSIDE, CENTER);
-       label1.getStyle().setPaddingLeft(-10); 
+         .toUpperCase(false)
+         .setText("Dia") 
+         .align(ControlP5.LEFT_OUTSIDE, CENTER);
+ //      label1.getStyle().setPaddingLeft(50); 
+       
+       cp5.getController("Diameter")
+             .getValueLabel()
+             .align(ControlP5.LEFT, ControlP5.TOP_OUTSIDE)
+             .setPaddingX(0)
+             .setPaddingY(0)
+         //  .setFont(font)
+         ;
+
+
 
  
  
-  Slider S2 = cp5.addSlider("weightSlider")
+  Slider S2 = cp5.addSlider("Weight")
        .setPosition(leftMargin+50, Y+sliderHeight+sliderSpacing)
        .setSize(sliderWidth,sliderHeight)
        .setRange(10, 500)
@@ -281,7 +288,7 @@ Slider S1 =  cp5.addSlider("diameterSlider")
        label2.getStyle().setPaddingLeft(-10); 
   
   
- Slider S3 = cp5.addSlider("velocitySlider")
+ Slider S3 = cp5.addSlider("Velocity")
        .setPosition(leftMargin+50, Y+2*(sliderHeight+sliderSpacing))
        .setSize(sliderWidth,sliderHeight)
        .setRange(400, 1600)
@@ -301,19 +308,19 @@ Slider S1 =  cp5.addSlider("diameterSlider")
 }
  
  
- void diameterSlider(float val)
+ void Diameter(float val)
  {
-   val = Math.round(val * 100);
-   val = val/100;
+//   val = Math.round(val * 100);
+ //  val = val/100;
     diameter = val;
  }
  
- void weightSlider(int val)
+ void Weight(int val)
  {
     weight = val;
  }
  
- void velocitySlider(int val)
+ void Velocity(int val)
  {
    
     velocity = val;
