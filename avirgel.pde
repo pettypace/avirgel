@@ -51,21 +51,21 @@ void setup() {
  cp5.setFont(font);
  leftMargin = int(displayWidth * 0.1);
  
- barHeight = displayHeight /  12;
- barSpacing = displayHeight / 8;
+ barHeight = int(displayHeight * 0.08);
+ barSpacing = int(displayHeight * 0.125);
  barWidth = int(displayWidth * .8);
  
  buttonSpacing = int(displayWidth * 0.05);
- buttonSize = int(displayWidth * 0.1);
+ buttonSize = int(displayWidth * 0.08);
  buttonMargin = int((displayWidth - (6*buttonSize + 5*buttonSpacing))/2);
  
 // sliderY = int(displayHeight*0.5); 
- sliderHeight = displayHeight/15;
- sliderWidth = int(displayWidth*.75);
- sliderSpacing = int(displayHeight * 0.05);
+ sliderHeight = int(displayHeight * 0.07);
+ sliderWidth = int(displayWidth * .75);
+ sliderSpacing = int(displayHeight * 0.03);
 
- addButtons(int(displayHeight*0.45));
- addSliders(int(displayHeight*0.55));
+ addButtons(int(displayHeight*0.50));
+ addSliders(int(displayHeight*0.65));
  
 
  
@@ -82,13 +82,13 @@ void draw() {
   showTitle(int(displayHeight*0.05));
  
   reCalculate();
-  drawBarGraph(leftMargin,barSpacing*1,pen,"Penetration in Bare 10% Gelatin (in)");  
-  drawBarGraph(leftMargin,barSpacing*2,wtiWoundMass,"MacPherson WTI Wound Mass (g)");  
+  drawBarGraph(leftMargin,int(displayHeight*0.180),pen,"Penetration in Bare 10% Gelatin (in)");  
+  drawBarGraph(leftMargin,int(displayHeight*0.300),wtiWoundMass,"MacPherson WTI Wound Mass (g)");  
 //  drawBarGraph(leftMargin,barSpacing*3,pcWoundMass,"PC VOL (cc)"); 
-  showEnergyAndPower(int(displayHeight * 0.1));
+  showBulletParameters(int(displayHeight * 0.1));
   showInstructions();
+  showButtonLabels(int(displayHeight * 0.56));
   showSlideSpace();
-  showButtonLabels(int(displayHeight * 0.53));
 
 }
 
@@ -97,8 +97,9 @@ void showButtonLabels(int Y){
   String[] buttonLabels = {"WC","TC","SWC","RN","RB","MSH"};
   fill(0);
   textSize(25);
+  textAlign(CENTER);
   for(int i = 0; i<buttonLabels.length; i++){
-  int xPos = buttonMargin + i*(buttonSize+buttonSpacing);
+  int xPos = buttonMargin + buttonSize/2 + i*(buttonSize+buttonSpacing);
   text(buttonLabels[i],xPos,Y);
   }
     
@@ -111,13 +112,13 @@ void showButtonLabels(int Y){
 void showInstructions(){
   
   String text1 = "Double tap button below to select nose shape.";
-  String text2 = "TAP in DIA, WGT, or VEL graph. Then...";
-  String text3 = "...SLIDE in gray box below to adjust.";
+  String text2 = "Tap in graph, then slide in gray box to adjust.";
+//  String text3 = "...SLIDE in gray box below to adjust.";
   textAlign(CENTER);
   textSize(30);
-  text(text1, displayWidth/2,displayHeight*0.425);
-  text(text2, displayWidth/2,displayHeight*0.55+sliderHeight+sliderSpacing/2+5);
-  text(text3, displayWidth/2,displayHeight*0.55+sliderHeight*2+sliderSpacing+40);
+  text(text1, displayWidth/2,displayHeight*0.48);
+  text(text2, displayWidth/2,displayHeight*0.62);
+//  text(text3, displayWidth/2,displayHeight*0.55+sliderHeight*2+sliderSpacing+40);
 }
   
 
@@ -125,9 +126,9 @@ void showInstructions(){
 
   void showSlideSpace(){
     int X = leftMargin+50;
-    int Y = int(displayHeight*0.9);
+    int Y = int(displayHeight*0.95);
     int W = sliderWidth;
-    int H = int(sliderHeight*1.5);
+    int H = int(sliderHeight);
     
     fill(118);
     rect(X,Y,W,H);
@@ -157,17 +158,22 @@ void showTitle(int Y){
   text(title, displayWidth/2,Y);
 }  
 
-void showEnergyAndPower(int Y){
+void showBulletParameters(int Y){
   int powerFactor = weight * velocity /1000;
   fill(0);
   textAlign(CENTER);
   textSize(36);
   
-  String data = "Nose=" + nose 
-       + "     KE=" + String.valueOf(Math.round(energy))+" ft-lb"
-       + "     PF=" + String.valueOf(powerFactor);
+  String data1 = weight + " gr " + nose + ",  Dia: " + diameter + " in,  Vel:  " + velocity + " ft/s";
+  text(data1,displayWidth/2,Y);  
+  
+  
+  String data2 = "Energy: " + String.valueOf(Math.round(energy))+" ft-lb"
+       + "   Power Factor:" + String.valueOf(powerFactor);
+  text(data2,displayWidth/2,Y+50); 
+  
+  
 
-  text(data,displayWidth/2,Y);
 }  
 
 
@@ -195,7 +201,7 @@ void addButtons(int Y)
  
   
      r1 = cp5.addRadioButton("noseButton")
-         .setPosition(leftMargin/2,Y)
+         .setPosition(buttonMargin,Y)
          .setSize(buttonSize,buttonSize)
  //       .setFont(font)
          .setColorForeground(color(#F0B5B5))
