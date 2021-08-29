@@ -110,15 +110,12 @@ void showButtonLabels(int Y){
 
 
 void showInstructions(){
-  
-  String text1 = "Double tap button below to select nose shape.";
-  String text2 = "Tap in graph, then slide in gray box to adjust.";
-//  String text3 = "...SLIDE in gray box below to adjust.";
+  String text1 = "Double tap button to select nose shape:";
+  String text2 = "Tap graph, then slide in gray box to adjust:";
   textAlign(CENTER);
   textSize(30);
   text(text1, displayWidth/2,displayHeight*0.48);
   text(text2, displayWidth/2,displayHeight*0.62);
-//  text(text3, displayWidth/2,displayHeight*0.55+sliderHeight*2+sliderSpacing+40);
 }
   
 
