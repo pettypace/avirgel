@@ -7,6 +7,16 @@ ControlP5 cp5; // controlP5 object
 
 RadioButton r1;
 
+float titleScaler = 0.05;
+float dataScaler = 0.10;
+float penBarScaler = 0.18;
+float wtiBarScaler = 0.30;
+float buttonInstScaler = 0.48;
+float buttonScaler = 0.52;
+float buttonLabelScaler = 0.58;
+float sliderInstScaler = 0.65;
+float slidersScaler = 0.70;
+
 String nose = "WC";
 float diameter = 0.35;
 int weight = 148;
@@ -43,6 +53,11 @@ void setup() {
  cp5 = new ControlP5(this);
  PFont font = createFont("arial",30);
  
+
+ 
+ 
+ 
+ 
  cp5.setFont(font);
  leftMargin = int(displayWidth * 0.1);
  
@@ -50,17 +65,17 @@ void setup() {
  barSpacing = int(displayHeight * 0.125);
  barWidth = int(displayWidth * .8);
  
- buttonSpacing = int(displayWidth * 0.05);
+ buttonSpacing = int(displayWidth * 0.04);
  buttonSize = int(displayWidth * 0.08);
  buttonMargin = int((displayWidth - (6*buttonSize + 5*buttonSpacing))/2);
  
 // sliderY = int(displayHeight*0.5); 
- sliderHeight = int(displayHeight * 0.04);
- sliderWidth = int(displayWidth * .75);
- sliderSpacing = int(displayHeight * 0.02);
+ sliderHeight = int(displayHeight * 0.02);
+ sliderWidth = int(displayWidth * .80);
+ sliderSpacing = int(displayHeight * 0.08);
 
- addButtons(int(displayHeight*0.50));
- addSliders(int(displayHeight*0.70)); 
+ addButtons(int(displayHeight*buttonScaler));
+ addSliders(int(displayHeight*slidersScaler)); 
 
 }
  
@@ -68,17 +83,18 @@ void setup() {
 void draw() { 
   
   background(#E5DADA);  
-  showTitle(int(displayHeight*0.05));
+  showTitle(int(displayHeight*titleScaler));
  
   reCalculate();
-  drawBarGraph(leftMargin,int(displayHeight*0.180),pen,"Penetration in Bare 10% Gelatin (in)");  
-  drawBarGraph(leftMargin,int(displayHeight*0.300),wtiWoundMass,"MacPherson WTI Wound Mass (g)");  
+  drawBarGraph(leftMargin,int(displayHeight*penBarScaler),pen,"Penetration in Bare 10% Gelatin (in)");  
+  drawBarGraph(leftMargin,int(displayHeight*wtiBarScaler),wtiWoundMass,"MacPherson WTI Wound Mass (g)");  
 //  drawBarGraph(leftMargin,barSpacing*3,pcWoundMass,"PC VOL (cc)"); 
-  showBulletParameters(int(displayHeight * 0.1));
-//  showInstructions();
-  showButtonLabels(int(displayHeight * 0.56));
-  showButtonInstructions(int(displayHeight*0.48));
-  showSlideSpace(int(displayHeight*0.60));
+  showBulletData(int(displayHeight * dataScaler));
+  showSliderInstructions(int(displayHeight * sliderInstScaler));
+  showButtonInstructions(int(displayHeight*buttonInstScaler));
+  showButtonLabels(int(displayHeight * buttonLabelScaler));
+
+//  showSlideSpace(int(displayHeight*0.60));
 
 }
 
@@ -95,18 +111,23 @@ void showButtonLabels(int Y){
     
 }
 
-
+void showSliderInstructions(int Y){
+  String t = "TAP then SLIDE to change values below:";
+  textAlign(CENTER);
+  textSize(30);
+  text(t, displayWidth/2,Y);
+}  
 
 
 
 void showButtonInstructions(int Y){
-  String text1 = "Double tap button to select nose shape:";
-//  String text2 = "Tap graph, then slide in this box:";
+  String t = "Current bullet nose shape is: " + nose;
   textAlign(CENTER);
   textSize(30);
-//  text(text1, displayWidth/2,displayHeight*0.48);
-  text(text1, displayWidth/2,Y);
-//  text(text2, displayWidth/2,displayHeight*0.62);
+  text(t, displayWidth/2,Y);
+  t = "Double tap a button below to change it.";
+  text(t, displayWidth/2,Y+30);  
+  
 }
   
 
@@ -146,7 +167,7 @@ void showTitle(int Y){
   text(title, displayWidth/2,Y);
 }  
 
-void showBulletParameters(int Y){
+void showBulletData(int Y){
 
   String data = "";
   
@@ -201,9 +222,11 @@ void addButtons(int Y)
          .setPosition(buttonMargin,Y)
          .setSize(buttonSize,buttonSize)
  //       .setFont(font)
-         .setColorForeground(color(#F0B5B5))
+//         .setColorForeground(color(#F0B5B5))
+         .setColorForeground(color(255))
          .setColorBackground(color(255))
-         .setColorActive(color(#F5839E))
+ //        .setColorActive(color(#2AF535))
+         .setColorActive(color(255))
          .setColorLabel(color(0))
          .setItemsPerRow(6)
          .setSpacingColumn(buttonSpacing)
@@ -214,10 +237,11 @@ void addButtons(int Y)
          .addItem("rb",5)  
          .addItem("msh",6)
          ;
-     
+//    int i = 0;     
+//    String[] buttonLabels = {"WC","TC","SWC","RN","RB","MSH"};   
      for(Toggle t:r1.getItems()) {
   //     t.getCaptionLabel().setColorBackground(color(255,#E5DADA));
-  //     t.getCaptionLabel().getStyle().moveMargin(-7,0,0,-3);
+  //     t.getCaptionLabel().getStyle().moveMargin(0,-40,0,-3);
   //     t.getCaptionLabel().getStyle().movePadding(7,0,0,3);
  //      t.getCaptionLabel().getStyle().backgroundWidth = 45;
   //     t.getCaptionLabel().getStyle().backgroundHeight = 13;
@@ -238,73 +262,89 @@ void addSliders(int Y)
 
 
 Slider S1 =  cp5.addSlider("Diameter")
-       .setPosition(leftMargin+50, Y)
+       .setPosition(leftMargin, Y)
        .setSize(sliderWidth,sliderHeight)
-       .setNumberOfTickMarks(101)
-       .setRange(0.20, 1.00)
+//       .setNumberOfTickMarks(101)
+       .setRange(0.20, 1.20)
        .setValue(.35)
        .setLabel("Dia")
        .setColorCaptionLabel(color(0))
        .setColorValue(color(0))  
-       .setColorActive(color(#F0B5B5)) 
-       .setColorForeground(color(#F5839E))
+       .setColorActive(color(#F5839E)) 
+       .setColorForeground(color(#2AF535))
        .setColorBackground(color(255, 255, 255));
      Label label1 = S1.getCaptionLabel() 
- //      label1.setFont(font1);
+ //      .setFont(font1);
          .toUpperCase(false)
-         .setText("Dia") 
-         .align(ControlP5.LEFT_OUTSIDE, CENTER);
- //      label1.getStyle().setPaddingLeft(50); 
+         .setText("Bullet Diameter (in):") 
+         .align(ControlP5.LEFT, ControlP5.TOP_OUTSIDE);
+ //      .getStyle().setPaddingLeft(50); 
        
+
        cp5.getController("Diameter")
              .getValueLabel()
-             .align(ControlP5.LEFT, ControlP5.TOP_OUTSIDE)
+             .align(ControlP5.RIGHT, ControlP5.TOP_OUTSIDE)
              .setPaddingX(0)
              .setPaddingY(0)
          //  .setFont(font)
          ;
 
 
-
  
  
   Slider S2 = cp5.addSlider("Weight")
-       .setPosition(leftMargin+50, Y+sliderHeight+sliderSpacing)
+       .setPosition(leftMargin, Y+sliderHeight+sliderSpacing)
        .setSize(sliderWidth,sliderHeight)
        .setRange(10, 500)
        .setValue(148)
        .setLabel("Wgt")
        .setColorCaptionLabel(color(0))
        .setColorValue(color(0))  
-       .setColorActive(color(#F0B5B5)) 
-       .setColorForeground(color(#F5839E))
+       .setColorActive(color(#F5839E)) 
+       .setColorForeground(color(#2AF535))
        .setColorBackground(color(255, 255, 255));
  
-         Label label2 = S2.getCaptionLabel(); 
- //      label1.setFont(font1);
-       label2.toUpperCase(false);
-       label2.setText("WGT"); // to update upperCase state
-       label2.align(ControlP5.LEFT_OUTSIDE, CENTER);
-       label2.getStyle().setPaddingLeft(-10); 
+        label1 = S2.getCaptionLabel()
+  //      .setFont(font1);
+         .toUpperCase(false)
+         .setText("Bullet Weight (gr):") 
+         .align(ControlP5.LEFT, ControlP5.TOP_OUTSIDE);
+ //      .getStyle().setPaddingLeft(50); 
+       cp5.getController("Weight")
+             .getValueLabel()
+             .align(ControlP5.RIGHT, ControlP5.TOP_OUTSIDE)
+             .setPaddingX(0)
+             .setPaddingY(0)
+         //  .setFont(font)
+         ;  
+  
+  
   
   
  Slider S3 = cp5.addSlider("Velocity")
-       .setPosition(leftMargin+50, Y+2*(sliderHeight+sliderSpacing))
+       .setPosition(leftMargin, Y+2*(sliderHeight+sliderSpacing))
        .setSize(sliderWidth,sliderHeight)
        .setRange(400, 1600)
        .setValue(650)
        .setLabel("Vel")
        .setColorCaptionLabel(color(0))
        .setColorValue(color(0))  
-       .setColorActive(color(#F0B5B5)) 
-       .setColorForeground(color(#F5839E))
+       .setColorActive(color(#F5839E)) 
+       .setColorForeground(color(#2AF535))
        .setColorBackground(color(255, 255, 255)); 
-    Label label3 = S3.getCaptionLabel(); 
- //      label1.setFont(font1);
-       label3.toUpperCase(false);
-       label3.setText("VEL"); // to update upperCase state
-       label3.align(ControlP5.LEFT_OUTSIDE, CENTER);
-       label3.getStyle().setPaddingLeft(-10); 
+        label1 = S3.getCaptionLabel()
+  //      .setFont(font1);
+         .toUpperCase(false)
+         .setText("Bullet Velocity (ft/s):") 
+         .align(ControlP5.LEFT, ControlP5.TOP_OUTSIDE);
+ //      .getStyle().setPaddingLeft(50); 
+       cp5.getController("Velocity")
+             .getValueLabel()
+             .align(ControlP5.RIGHT, ControlP5.TOP_OUTSIDE)
+             .setPaddingX(0)
+             .setPaddingY(0)
+         //  .setFont(font)
+         ;  
 }
  
  
