@@ -31,14 +31,18 @@ int barHeight      = 0;
 int barSpacing     = 0;
 int barWidth       = 0;
  
-  
+//                  kbar(x,y,h,  w  ,lo,hi ,strt,bgC,fgC,mode)  
+//  kbar penBar = new kbar(0,0,100,500,0,100,0,0,#D12424,0); 
+
+
+  kbar vBar = new kbar(0,0,100,500,400,1600,650,0,#D12424,1); 
   kbar dBar = new kbar(0,0,100,500,20,120,35,0,#D12424,1); 
   kbar wBar = new kbar(0,0,100,500,0,500,148,0,#D12424,1); 
-  kbar vBar = new kbar(0,0,100,500,400,1600,650,0,#D12424,1); 
+
   
-//  kbar testBar = new kbar(
+
   
-  kradiobuttons  radiobuttons = new kradiobuttons(6,60,50,50,750,650,0,#D12424,255);
+  kradiobuttons  radiobuttons = new kradiobuttons(6,70,70,50,750,650,0,#D12424,255);
 
 
 void setup() {
@@ -47,17 +51,20 @@ void setup() {
   
   
   dBar.setLeftMargin(displayWidth/10);
+  dBar.setBarWidth(int(displayWidth*0.8));  
+  dBar.setY(int(displayHeight*0.7));  
+
   wBar.setLeftMargin(displayWidth/10); 
+  wBar.setBarWidth(int(displayWidth*0.8));   
+  wBar.setY(int(displayHeight*0.8));  
+
   vBar.setLeftMargin(displayWidth/10);
-
-  dBar.setBarWidth(int(displayWidth*0.8));
-  wBar.setBarWidth(int(displayWidth*0.8));  
   vBar.setBarWidth(int(displayWidth*0.8));  
-
-  dBar.setY(int(displayHeight*0.7));
-  wBar.setY(int(displayHeight*0.8)); 
   vBar.setY(int(displayHeight*0.9));  
 
+//  penBar.setLeftMargin(displayWidth/10);
+//  penBar.setBarWidth(int(displayWidth*0.8));
+//  penBar.setY(int(displayHeight*0.6));
 
 
   
@@ -97,6 +104,7 @@ void draw() {
   dBar.update();
   vBar.update();
   wBar.update();
+//  penBar.update();
   
   radiobuttons.update();
   
@@ -106,7 +114,7 @@ void draw() {
   weight = wBar.getval();
   diameter = dBar.getval();
   
-  
+//  penBar.setcarot(penInt);
   
 }
 
@@ -137,8 +145,8 @@ void checkButtonValue()
     wtiWoundMass = wtiPen*3.14*diameter*diameter/4*17*phi/10000; 
     if(wtiWoundMass < 0) wtiWoundMass = 0;
     energy = Math.pow(velocity,2)*weight/450240;
- 
-
+    penInt = int(Math.round((pen+0.5)*10));
+//  println(penInt);
 
   }
 
@@ -174,12 +182,12 @@ void drawBarGraph(int x, int y, double value, String label, color bgColor, color
   textSize(35);
   stroke(#E5DADA);
   fill(bgColor);
-  rect(x,y,barWidth,barHeight);
+  rect(x,y,barWidth,barHeight,barHeight/4);
   fill(barColor);
-  rect(x,y,5*(float)value,barHeight);
+  rect(x,y,5*(float)value,barHeight,barHeight/4);
   fill(255);
-  text(String.valueOf(Math.round(value)),x+20,y+barHeight/2+5);
-  textAlign(CENTER);
+  text(String.valueOf(Math.round(value)),x+20,y+barHeight/2);
+  textAlign(CENTER,CENTER);
   textSize(35);
   fill(0);
   text(label,displayWidth/2,y+barHeight+30);
