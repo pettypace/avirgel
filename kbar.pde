@@ -37,7 +37,7 @@ color kFgColor =128;
   
   
   void setcarot(int cval){
-      carot = cval;
+      carot = int(map(cval,rangel,rangeh,0,kwidth));;
   }
   
  void setLeftMargin(int x){

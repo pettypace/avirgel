@@ -1,6 +1,6 @@
 
 
-// Android version as of 29 August 2021
+// Android version as of 01 September 2021
 
 String title = "VIRGEL Isn't Really GELLO";
 
@@ -32,8 +32,8 @@ int barSpacing     = 0;
 int barWidth       = 0;
  
 //                  kbar(x,y,h,  w  ,lo,hi ,strt,bgC,fgC,mode)  
-//  kbar penBar = new kbar(0,0,100,500,0,100,0,0,#D12424,0); 
-
+  kbar penBar = new kbar(0,0,100,500,0,100,0,0,#D12424,0); 
+  kbar wtiBar = new kbar(0,0,100,500,0,150,0,0,#D12424,0); 
 
   kbar vBar = new kbar(0,0,100,500,400,1600,650,0,#D12424,1); 
   kbar dBar = new kbar(0,0,100,500,20,120,35,0,#D12424,1); 
@@ -41,34 +41,45 @@ int barWidth       = 0;
 
   
 
-  
-  kradiobuttons  radiobuttons = new kradiobuttons(6,70,70,50,750,650,0,#D12424,255);
-
+ //                                                (nb,bh,bw,leftmar,rightmar,yloc,onClr,offClr,lblClr) 
+  kradiobuttons  radiobuttons =   new kradiobuttons(6, 70,70, 50,    750,   800, 0,    #D12424,255);
 
 void setup() {
   orientation(PORTRAIT);
   size(displayWidth,displayHeight);
   
+    PFont font = createFont("arial",30);
   
   dBar.setLeftMargin(displayWidth/10);
   dBar.setBarWidth(int(displayWidth*0.8));  
   dBar.setY(int(displayHeight*0.7));  
 
+
   wBar.setLeftMargin(displayWidth/10); 
   wBar.setBarWidth(int(displayWidth*0.8));   
   wBar.setY(int(displayHeight*0.8));  
+
 
   vBar.setLeftMargin(displayWidth/10);
   vBar.setBarWidth(int(displayWidth*0.8));  
   vBar.setY(int(displayHeight*0.9));  
 
-//  penBar.setLeftMargin(displayWidth/10);
-//  penBar.setBarWidth(int(displayWidth*0.8));
-//  penBar.setY(int(displayHeight*0.6));
 
+  penBar.setLeftMargin(displayWidth/10);
+  penBar.setBarWidth(int(displayWidth*0.8));
+  penBar.setY(int(displayHeight*0.2));
+  penBar.setcarot(penInt);
 
+  wtiBar.setLeftMargin(displayWidth/10);
+  wtiBar.setBarWidth(int(displayWidth*0.8));
+  wtiBar.setY(int(displayHeight*0.3));
+  wtiBar.setcarot(wtiInt);
   
   
+  
+  
+
+
   radiobuttons.setlabel(0,"WC");
   radiobuttons.setlabel(1,"TC");
   radiobuttons.setlabel(2,"SWC");
@@ -76,9 +87,9 @@ void setup() {
   radiobuttons.setlabel(4,"RB");
   radiobuttons.setlabel(5,"MSH "); 
   radiobuttons.setLeftMargin(int(displayWidth*0.1));
+  radiobuttons.setY(int(displayHeight*0.6));
 
-
-  PFont font = createFont("arial",30);
+//  radiobuttons.Selection(3);
 
 
  
@@ -94,9 +105,7 @@ void draw() {
   showTitle(int(displayHeight*0.05));
  
   reCalculate();
-  drawBarGraph(barMargin,int(displayHeight*0.18),pen,"Penetration in Bare 10% Gelatin (in)",0,#D12424);  
-  drawBarGraph(barMargin,int(displayHeight*0.30),wtiWoundMass,"MacPherson WTI Wound Mass (g)",0,#D12424); 
-  // drawBarGraph(leftMargin,barSpacing*3,pcWoundMass,"PC VOL (cc)"); 
+
   showBulletData(int(displayHeight * 0.10));
 
    
@@ -104,9 +113,18 @@ void draw() {
   dBar.update();
   vBar.update();
   wBar.update();
-//  penBar.update();
+  
+  penBar.setcarot(penInt);  
+  penBar.update();
+  
+  wtiBar.setcarot(wtiInt);  
+  wtiBar.update(); 
+  
+  
+  
   
   radiobuttons.update();
+
   
   checkButtonValue();
   
@@ -114,7 +132,7 @@ void draw() {
   weight = wBar.getval();
   diameter = dBar.getval();
   
-//  penBar.setcarot(penInt);
+
   
 }
 
@@ -127,6 +145,9 @@ void checkButtonValue()
     if(radiobuttons.getselection() == 3){nose="RN";alpha=0.720;phi=0.66;}   
     if(radiobuttons.getselection() == 4){nose="RB";alpha=0.745;phi=0.5;}
     if(radiobuttons.getselection() == 5){nose="MSHRM";alpha=0.740;phi=0.82;}
+ 
+
+      
 }  
 
 
@@ -145,8 +166,8 @@ void checkButtonValue()
     wtiWoundMass = wtiPen*3.14*diameter*diameter/4*17*phi/10000; 
     if(wtiWoundMass < 0) wtiWoundMass = 0;
     energy = Math.pow(velocity,2)*weight/450240;
-    penInt = int(Math.round((pen+0.5)*10));
-//  println(penInt);
+    penInt = int(Math.round((pen+0.5)));
+    wtiInt = int(Math.round((wtiWoundMass+0.5)));
 
   }
 
@@ -173,25 +194,6 @@ void showBulletData(int Y){
   data = "Energy: " + String.valueOf(Math.round(energy))+" ft-lb"
        + "   Power Factor: " + String.valueOf(powerFactor);
   text(data,displayWidth/2,Y+50); 
-}  
-
-
-
-void drawBarGraph(int x, int y, double value, String label, color bgColor, color barColor){  
-  textAlign(LEFT);
-  textSize(35);
-  stroke(#E5DADA);
-  fill(bgColor);
-  rect(x,y,barWidth,barHeight,barHeight/4);
-  fill(barColor);
-  rect(x,y,5*(float)value,barHeight,barHeight/4);
-  fill(255);
-  text(String.valueOf(Math.round(value)),x+20,y+barHeight/2);
-  textAlign(CENTER,CENTER);
-  textSize(35);
-  fill(0);
-  text(label,displayWidth/2,y+barHeight+30);
-  
 }  
 
 

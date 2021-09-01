@@ -34,7 +34,9 @@ void setLeftMargin(int x){
   leftmargin = x;
 }
 
-
+void setY(int y){
+  ylocation = y;
+}  
 
 
 
@@ -42,13 +44,27 @@ int getselection(){
  return active;
 }
 
+void setSelection(int B){
+  for (int d=0;d<buttonlist.length;d++) buttonlist[d].off();
+  buttonlist[B].on();
+  active = B;
+  update();
+  
+}  
+
+
+
 
   
   void update(){
       for (int d=0;d<buttonlist.length;d++) buttonlist[d].off();
   
       for (int v=0;v<buttonlist.length;v++){
-        if(mouseX > buttonlist[v].getleft() && mouseX < buttonlist[v].getright() && mouseY > buttonlist[v].gettop() && mouseY < buttonlist[v].getbottom() && mousePressed == true){
+        if(mouseX > buttonlist[v].getleft() && 
+           mouseX < buttonlist[v].getright() && 
+           mouseY > buttonlist[v].gettop() && 
+           mouseY < buttonlist[v].getbottom() && 
+           mousePressed == true){
            active = v;
         } 
        } 
