@@ -13,13 +13,13 @@ int rangeh      = 0;
 int rangel      = 0;
 color kBgColor  =0;
 color kFgColor =128;
-
+String units = "";
 
 
 
 
   
-     kbar(int xloc,int yloc,int h, int w,int rl,int rh,int starting,color bgColor,color fgColor,int mode){
+     kbar(int xloc,int yloc,int h, int w,int rl,int rh,int starting,color bgColor,color fgColor,int mode,String u){
         barmode  = mode;
         kheight = h;
         kwidth  = w;
@@ -29,7 +29,7 @@ color kFgColor =128;
         rangeh  = rh;
         kBgColor    = bgColor;
         kFgColor    = fgColor;
-      
+        units   = u;
         
   
         carot   = int(map(starting,rangel,rangeh,0,kwidth));
@@ -72,8 +72,8 @@ void setY(int y){
     
     textAlign(RIGHT,CENTER);
     fill(255);
-    text(int(map(carot,0,kwidth,rangel,rangeh)),kx+kwidth*9/10,ky+kheight/2);
- //   text(int(map(carot,0,kwidth,rangel,rangeh)),kx+kheight/3,ky+kheight/2);   
+    text(int(map(carot,0,kwidth,rangel,rangeh))+units,kx+kwidth*9/10,ky+kheight/2);
+ //   text(units,kx+kheight/3,ky+kheight/2);   
    }
 
 int getval(){

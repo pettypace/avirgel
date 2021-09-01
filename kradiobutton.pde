@@ -30,6 +30,11 @@ void addlabel(String intext){
 }
 
 
+void setY(int y){
+  ky = y;
+}  
+
+
 int getleft(){
     return(kx);
 }

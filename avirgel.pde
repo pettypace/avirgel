@@ -5,80 +5,67 @@
 String title = "VIRGEL Isn't Really GELLO";
 
 
-int barMargin = 50;
+int barLeft = int(displayWidth*0.10);
 
-String nose = "WC";
-float diameter = 0.35;
-int weight = 148;
-int velocity = 650;
-float alpha = 0.685;
-float phi = 1.0;
-double energy = Math.pow(velocity,2)*weight/450240;
-
-
+String nose;
+float diameter;
+int weight;
+int velocity;
+float alpha;
+float phi;
+double energy;
 double pen = 0;
 double wtiPen = 0;
 int penInt = 0;
 int wtiInt = 0;
-
 double wtiWoundMass = 0;
-double pcWoundMass = 0;
+
 
 int leftMargin = 0;
 
-
-int barHeight      = 0;
-int barSpacing     = 0;
-int barWidth       = 0;
  
 //                  kbar(x,y,h,  w  ,lo,hi ,strt,bgC,fgC,mode)  
-  kbar penBar = new kbar(0,0,100,500,0,100,0,0,#D12424,0); 
-  kbar wtiBar = new kbar(0,0,100,500,0,150,0,0,#D12424,0); 
+  kbar penBar = new kbar(barLeft,0,100,500,0,100,0,0,#D12424,0," (in)"); 
+  kbar wtiBar = new kbar(0,0,100,500,0,150,0,0,#D12424,0," (g)"); 
 
-  kbar vBar = new kbar(0,0,100,500,400,1600,650,0,#D12424,1); 
-  kbar dBar = new kbar(0,0,100,500,20,120,35,0,#D12424,1); 
-  kbar wBar = new kbar(0,0,100,500,0,500,148,0,#D12424,1); 
+  kbar vBar = new kbar(0,0,100,500,400,1600,650,0,#D12424,1," (ft/s)"); 
+  kbar dBar = new kbar(0,0,100,500,20,120,35,0,#D12424,1,"/100 (in)");   
+  kbar wBar = new kbar(0,0,100,500,0,500,148,0,#D12424,1," (gr)"); 
 
   
 
  //                                                (nb,bh,bw,leftmar,rightmar,yloc,onClr,offClr,lblClr) 
-  kradiobuttons  radiobuttons =   new kradiobuttons(6, 70,70, 50,    750,   800, 0,    #D12424,255);
+  kradiobuttons  radiobuttons =   new kradiobuttons(6, 70,70, 60,    760,   0, 0,    #D12424,255);
 
 void setup() {
   orientation(PORTRAIT);
   size(displayWidth,displayHeight);
-  
-    PFont font = createFont("arial",30);
-  
-  dBar.setLeftMargin(displayWidth/10);
+
+  dBar.setLeftMargin(int(displayWidth*0.1));
   dBar.setBarWidth(int(displayWidth*0.8));  
-  dBar.setY(int(displayHeight*0.7));  
+  dBar.setY(int(displayHeight*0.63));
+  
 
 
-  wBar.setLeftMargin(displayWidth/10); 
-  wBar.setBarWidth(int(displayWidth*0.8));   
-  wBar.setY(int(displayHeight*0.8));  
+  wBar.setLeftMargin(int(displayWidth*0.10)); 
+  wBar.setBarWidth(int(displayWidth*0.80));   
+  wBar.setY(int(displayHeight*0.78));  
 
 
-  vBar.setLeftMargin(displayWidth/10);
+  vBar.setLeftMargin(int(displayWidth*0.10));
   vBar.setBarWidth(int(displayWidth*0.8));  
-  vBar.setY(int(displayHeight*0.9));  
+  vBar.setY(int(displayHeight*0.93));  
 
 
-  penBar.setLeftMargin(displayWidth/10);
+  penBar.setLeftMargin(int(displayWidth*0.10));
   penBar.setBarWidth(int(displayWidth*0.8));
-  penBar.setY(int(displayHeight*0.2));
+  penBar.setY(int(displayHeight*0.18));
   penBar.setcarot(penInt);
 
-  wtiBar.setLeftMargin(displayWidth/10);
+  wtiBar.setLeftMargin(int(displayWidth*0.10));
   wtiBar.setBarWidth(int(displayWidth*0.8));
-  wtiBar.setY(int(displayHeight*0.3));
+  wtiBar.setY(int(displayHeight*0.30));
   wtiBar.setcarot(wtiInt);
-  
-  
-  
-  
-
 
   radiobuttons.setlabel(0,"WC");
   radiobuttons.setlabel(1,"TC");
@@ -87,15 +74,11 @@ void setup() {
   radiobuttons.setlabel(4,"RB");
   radiobuttons.setlabel(5,"MSH "); 
   radiobuttons.setLeftMargin(int(displayWidth*0.1));
-  radiobuttons.setY(int(displayHeight*0.6));
-
-//  radiobuttons.Selection(3);
-
-
+  radiobuttons.setRightMargin(int(displayWidth*0.9));
+  radiobuttons.setY(int(displayHeight*0.50));
+    
  
-  barHeight      =  int(displayHeight * 0.08);
-  barSpacing = int(displayHeight * 0.125);
-  barWidth = int(displayWidth * .8);
+
 }
  
  
@@ -103,12 +86,12 @@ void draw() {
   
   background(#E5DADA);  
   showTitle(int(displayHeight*0.05));
- 
-  reCalculate();
-
   showBulletData(int(displayHeight * 0.10));
+  showAllGraphTitles();
+    
+    
 
-   
+  reCalculate();  
 
   dBar.update();
   vBar.update();
@@ -136,6 +119,20 @@ void draw() {
   
 }
 
+void showAllGraphTitles(){
+
+    textSize(30);
+    textAlign(CENTER);
+    text("Penetration in Bare 10% Gelatin (inches)",displayWidth/2,displayHeight*0.28);
+    text("MacPherson WTI Wound Mass (grams)",displayWidth/2,displayHeight*0.40);
+    text("Tap to change NOSE SHAPE",displayWidth/2,displayHeight*0.48);
+    text("Slide to change DIAMETER", displayWidth/2,displayHeight*0.62);
+    text("Slide to change WEIGHT", displayWidth/2,displayHeight*0.77);
+    text("Slide to change VELOCITY)", displayWidth/2,displayHeight*0.92);
+}    
+   
+
+
 
 void checkButtonValue()
 {
@@ -144,25 +141,14 @@ void checkButtonValue()
     if(radiobuttons.getselection() == 2){nose="SWC";alpha=0.725;phi=0.66;}
     if(radiobuttons.getselection() == 3){nose="RN";alpha=0.720;phi=0.66;}   
     if(radiobuttons.getselection() == 4){nose="RB";alpha=0.745;phi=0.5;}
-    if(radiobuttons.getselection() == 5){nose="MSHRM";alpha=0.740;phi=0.82;}
- 
-
-      
+    if(radiobuttons.getselection() == 5){nose="MSH";alpha=0.740;phi=0.82;}      
 }  
-
-
-
-  
-
 
   
   void reCalculate(){
     pen = weight*Math.pow(velocity,alpha)/.7/diameter/diameter/3.14*4;
     wtiPen = pen - 3;
     if(wtiPen > 15) wtiPen = 15;
-  
-    pcWoundMass = pen*3.14*diameter*diameter/4*phi*17;
-    pcWoundMass = Math.round(pcWoundMass+0.5);
     wtiWoundMass = wtiPen*3.14*diameter*diameter/4*17*phi/10000; 
     if(wtiWoundMass < 0) wtiWoundMass = 0;
     energy = Math.pow(velocity,2)*weight/450240;
@@ -174,10 +160,8 @@ void checkButtonValue()
 void showTitle(int Y){
   int fontSize = int(displayWidth/15);
   fill(0);
-  textAlign(CENTER);
-  
+  textAlign(CENTER);  
   textSize(fontSize);
-  //  textSize(fontSize);
   text(title, displayWidth/2,Y);
 }  
 
