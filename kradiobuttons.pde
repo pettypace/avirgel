@@ -16,7 +16,8 @@ class kradiobuttons{
        buttonwidth  = bw;
        leftmargin   = leftmar;
        rightmargin  = rightmar;
-       ylocation    = yloc;       xspacing     = int((rightmargin-leftmargin)/(numbuttons+1));
+       ylocation    = yloc;       
+       xspacing     = int((rightmargin-leftmargin)/numbuttons);
        buttonlist = new kradiobutton[numbuttons];
         for (int q = 0; q < buttonlist.length; q++) {
             buttonlist[q] = new kradiobutton(leftmargin+(xspacing*q),ylocation,bh,bw,onClr,offClr,lblClr);
@@ -29,15 +30,23 @@ void setlabel(int index,String intext){
 }
 
 
-void setLeftMargin(int x){
+void setMargins(int x,int y){
   leftmargin = x;
+  rightmargin = y;
+  xspacing = int((rightmargin-leftmargin)/numbuttons);
+  for (int i=0;i<buttonlist.length;i++){
+    buttonlist[i].kx = leftmargin+xspacing*i;
+  }
 }
 
+void setSize(int s){
+  for(int i=0;i<buttonlist.length;i++){
+    buttonlist[i].kwidth = s;
+    buttonlist[i].kheight = s;  
+  }  
+}  
 
 
-void setRightMargin(int x){
-  rightmargin = x;
-}
 
 void setY(int y){
   ylocation = y;

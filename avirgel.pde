@@ -2,10 +2,7 @@
 
 // Android version as of 01 September 2021
 
-String title = "VIRGEL Isn't Really GELLO";
-
-
-int barLeft = int(displayWidth*0.10);
+String T = "VIRGEL Isn't Really GELLO";
 
 String nose;
 float diameter;
@@ -21,51 +18,57 @@ int wtiInt = 0;
 double wtiWoundMass = 0;
 
 
-int leftMargin = 0;
 
  
-//                  kbar(x,y,h,  w  ,lo,hi ,strt,bgC,fgC,mode)  
-  kbar penBar = new kbar(barLeft,0,100,500,0,100,0,0,#D12424,0," (in)"); 
-  kbar wtiBar = new kbar(0,0,100,500,0,150,0,0,#D12424,0," (g)"); 
+//                  kbar(title,        x,y,h,  w  ,lo,hi ,strt,bgC,fgC,mode)  
+  kbar penBar = new kbar("PENETRATION",0,0,100,500,0,100,0,0,#D12424,0," (in)"); 
+  kbar wtiBar = new kbar("WTI WOUND MASS",0,0,100,500,0,150,0,0,#D12424,0," (g)"); 
 
-  kbar vBar = new kbar(0,0,100,500,400,1600,650,0,#D12424,1," (ft/s)"); 
-  kbar dBar = new kbar(0,0,100,500,20,120,35,0,#D12424,1,"/100 (in)");   
-  kbar wBar = new kbar(0,0,100,500,0,500,148,0,#D12424,1," (gr)"); 
+  kbar vBar = new kbar("VELOCITY",0,0,100,500,400,1600,650,0,#D12424,1," (ft/s)"); 
+  kbar dBar = new kbar("DIAMETER",0,0,100,500,20,120,35,0,#D12424,1,"/100 (in)");   
+  kbar wBar = new kbar("WEIGHT",0,0,100,500,0,500,148,0,#D12424,1," (gr)"); 
 
   
 
  //                                                (nb,bh,bw,leftmar,rightmar,yloc,onClr,offClr,lblClr) 
-  kradiobuttons  radiobuttons =   new kradiobuttons(6, 70,70, 60,    760,   0, 0,    #D12424,255);
+  kradiobuttons  radiobuttons =   new kradiobuttons(6, 60,60, 60,    600,   0, 0,    #D12424,255);
 
 void setup() {
-  orientation(PORTRAIT);
+//  orientation(PORTRAIT);
   size(displayWidth,displayHeight);
+  println(displayWidth,displayHeight);
+  
+  penBar.setLeftMargin(int(displayWidth*0.10));
+  penBar.setBarWidth(int(displayWidth*0.8));
+  penBar.setY(int(displayHeight*0.18));
+  penBar.setHeight(int(displayHeight*0.08));
+  penBar.setcarot(penInt);  
+  
+  
+  wtiBar.setLeftMargin(int(displayWidth*0.10));
+  wtiBar.setBarWidth(int(displayWidth*0.8));
+  wtiBar.setY(int(displayHeight*0.30));
+  wtiBar.setHeight(int(displayHeight*0.08));
+  wtiBar.setcarot(wtiInt);  
 
   dBar.setLeftMargin(int(displayWidth*0.1));
   dBar.setBarWidth(int(displayWidth*0.8));  
-  dBar.setY(int(displayHeight*0.63));
-  
+  dBar.setY(int(displayHeight*0.60));
+  dBar.setHeight(int(displayHeight*0.08));  
 
 
   wBar.setLeftMargin(int(displayWidth*0.10)); 
   wBar.setBarWidth(int(displayWidth*0.80));   
-  wBar.setY(int(displayHeight*0.78));  
-
+  wBar.setY(int(displayHeight*0.75));  
+  wBar.setHeight(int(displayHeight*0.08));  
 
   vBar.setLeftMargin(int(displayWidth*0.10));
   vBar.setBarWidth(int(displayWidth*0.8));  
-  vBar.setY(int(displayHeight*0.93));  
+  vBar.setY(int(displayHeight*0.90));  
+  vBar.setHeight(int(displayHeight*0.08)); 
 
 
-  penBar.setLeftMargin(int(displayWidth*0.10));
-  penBar.setBarWidth(int(displayWidth*0.8));
-  penBar.setY(int(displayHeight*0.18));
-  penBar.setcarot(penInt);
 
-  wtiBar.setLeftMargin(int(displayWidth*0.10));
-  wtiBar.setBarWidth(int(displayWidth*0.8));
-  wtiBar.setY(int(displayHeight*0.30));
-  wtiBar.setcarot(wtiInt);
 
   radiobuttons.setlabel(0,"WC");
   radiobuttons.setlabel(1,"TC");
@@ -73,9 +76,11 @@ void setup() {
   radiobuttons.setlabel(3,"RN");
   radiobuttons.setlabel(4,"RB");
   radiobuttons.setlabel(5,"MSH "); 
-  radiobuttons.setLeftMargin(int(displayWidth*0.1));
-  radiobuttons.setRightMargin(int(displayWidth*0.9));
-  radiobuttons.setY(int(displayHeight*0.50));
+  radiobuttons.setMargins(int(displayWidth*0.1),int(displayWidth*0.9));
+  radiobuttons.setY(int(displayHeight*0.48));
+
+  if(displayHeight > displayWidth) radiobuttons.setSize(int(displayHeight*0.06)); else 
+     radiobuttons.setSize(int(displayHeight*0.08));   
     
  
 
@@ -86,8 +91,8 @@ void draw() {
   
   background(#E5DADA);  
   showTitle(int(displayHeight*0.05));
-  showBulletData(int(displayHeight * 0.10));
-  showAllGraphTitles();
+//  showBulletData(int(displayHeight * 0.10));
+//  showAllGraphTitles();
     
     
 
@@ -158,26 +163,25 @@ void checkButtonValue()
   }
 
 void showTitle(int Y){
-  int fontSize = int(displayWidth/15);
+  int fontSize;
+  fontSize = int(displayWidth/15);
+  if(displayHeight<displayWidth) fontSize = int(displayWidth/30);
   fill(0);
   textAlign(CENTER);  
   textSize(fontSize);
-  text(title, displayWidth/2,Y);
-}  
-
-void showBulletData(int Y){
+  text(T, displayWidth/2,Y);
+  fontSize = int(displayWidth/20);
+  if(displayHeight<displayWidth) fontSize = int(displayWidth/50);
+  textSize(fontSize);  
   String data = "";  
   float D = diameter/100;
   String dia = String.format("%.02f", D);
   int powerFactor = weight * velocity /1000;
-  fill(0);
-  textAlign(CENTER);
-  textSize(36); 
   data = weight + " gr " + nose + ",  Dia: " + dia + " in,  Vel:  " + velocity + " ft/s";
-  text(data,displayWidth/2,Y);   
+  text(data,displayWidth/2,Y+2*fontSize);   
   data = "Energy: " + String.valueOf(Math.round(energy))+" ft-lb"
        + "   Power Factor: " + String.valueOf(powerFactor);
-  text(data,displayWidth/2,Y+50); 
+  text(data,displayWidth/2,Y+3*fontSize); 
 }  
 
 
