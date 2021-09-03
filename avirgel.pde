@@ -35,7 +35,7 @@ double wtiWoundMass = 0;
   kradiobuttons  radiobuttons =   new kradiobuttons(6, 60,60, 60,    600,   0, 0,    #D12424,255);
 
 void setup() {
-//  orientation(PORTRAIT);
+  orientation(PORTRAIT);
   size(displayWidth,displayHeight);
   println(displayWidth,displayHeight);
   
@@ -48,7 +48,7 @@ void setup() {
   
   wtiBar.setLeftMargin(int(displayWidth*0.10));
   wtiBar.setWidth(int(displayWidth*0.8));
-  wtiBar.setY(int(displayHeight*0.30));
+  wtiBar.setY(int(displayHeight*0.32));
   wtiBar.setHeight(int(displayHeight*0.08));
 //  wtiBar.setcarot(wtiInt);  
 
@@ -78,7 +78,7 @@ void setup() {
   radiobuttons.setlabel(4,"RB");
   radiobuttons.setlabel(5,"MSH "); 
   radiobuttons.setMargins(int(displayWidth*0.1),int(displayWidth*0.9));
-  radiobuttons.setY(int(displayHeight*0.52));
+  radiobuttons.setY(int(displayHeight*0.57));
 
   if(displayHeight > displayWidth) radiobuttons.setSize(int(displayHeight*0.06)); else 
      radiobuttons.setSize(int(displayHeight*0.08));   
@@ -92,9 +92,12 @@ void draw() {
   
   background(#E5DADA);  
   showTitle(int(displayHeight*0.05));
-//  showBulletData(int(displayHeight * 0.10));
-//  showAllGraphTitles();
-    
+  showBulletData(int(displayHeight * 0.053));
+  showPenNotes(int(displayHeight * 0.25));
+  showWtiNotes(int(displayHeight * 0.387)); 
+  showInputNotes(int(displayHeight * 0.48));   
+  drawInputRect();
+  drawOutputRect();
   
 
   reCalculate();  
@@ -115,7 +118,7 @@ void draw() {
   radiobuttons.update();
 
   
-  checkButtonValue();
+  getNoseParams();
   
   velocity = vBar.getval();
   weight = wBar.getval();
@@ -125,22 +128,55 @@ void draw() {
   
 }
 
-void showAllGraphTitles(){
+void drawInputRect(){
+  fill(256);
+//  stroke(0);
+  strokeWeight(8); 
+  rect(displayWidth*0.05, displayHeight*0.5, displayWidth*0.9,displayHeight*0.45, 25);
+  strokeWeight(4);   
+  
+}  
 
-    textSize(30);
-    textAlign(CENTER);
-    text("Penetration in Bare 10% Gelatin (inches)",displayWidth/2,displayHeight*0.28);
-    text("MacPherson WTI Wound Mass (grams)",displayWidth/2,displayHeight*0.40);
-    text("Tap to change NOSE SHAPE",displayWidth/2,displayHeight*0.48);
-    text("Slide to change DIAMETER", displayWidth/2,displayHeight*0.62);
-    text("Slide to change WEIGHT", displayWidth/2,displayHeight*0.77);
-    text("Slide to change VELOCITY)", displayWidth/2,displayHeight*0.92);
+void drawOutputRect(){
+  fill(256);
+  strokeWeight(8); 
+  rect(displayWidth*0.05, displayHeight*0.07, displayWidth*0.9,displayHeight*0.38, 25);
+  strokeWeight(4);   
+  
 }    
-   
 
 
+void showInputNotes(int Y){
+  int fontSize;  
+  fontSize = int(displayWidth/20); 
+  if(displayHeight<displayWidth) fontSize = int(displayWidth/50);
+  textSize(fontSize);  
+  String data = "Change Bullet Parameters Below:";  
+  text(data,displayWidth/2,Y+2*fontSize);    
+}  
+  
 
-void checkButtonValue()
+void showWtiNotes(int Y){
+  int fontSize;  
+  fontSize = int(displayWidth/30); 
+  if(displayHeight<displayWidth) fontSize = int(displayWidth/50);
+  textSize(fontSize);  
+  String data = "(Calculated for not more than 15 inches of penetration)";  
+  text(data,displayWidth/2,Y+2*fontSize);    
+}  
+  
+
+void  showPenNotes(int Y){
+  int fontSize;  
+  fontSize = int(displayWidth/30);
+  if(displayHeight<displayWidth) fontSize = int(displayWidth/50);
+  textSize(fontSize);  
+  String data = "(FBI recommends minimum 12 inches of penetration)";  
+  text(data,displayWidth/2,Y+2*fontSize);   
+} 
+  
+
+void getNoseParams()
 {
   switch (radiobuttons.getselection()){
     case 0 : nose="WC";alpha=0.685;phi=1.0;break;
@@ -173,6 +209,14 @@ void showTitle(int Y){
   textAlign(CENTER);  
   textSize(fontSize);
   text(T, displayWidth/2,Y);
+
+}  
+
+
+
+
+void  showBulletData(int Y){
+  int fontSize;  
   fontSize = int(displayWidth/20);
   if(displayHeight<displayWidth) fontSize = int(displayWidth/50);
   textSize(fontSize);  
@@ -186,10 +230,6 @@ void showTitle(int Y){
        + "   Power Factor: " + String.valueOf(powerFactor);
   text(data,displayWidth/2,Y+3*fontSize); 
 }  
-
-
-
-
 
 
 //  WC: 0.6887;  0.6850;  1.00
