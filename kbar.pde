@@ -1,5 +1,6 @@
 class kbar{
 String ktitle = "";
+String units = "";
 int barmode      = 0;
 int setting     = 0;
 int kheight     = 0;
@@ -13,14 +14,16 @@ int rangeh      = 0;
 int rangel      = 0;
 color kBgColor  =0;
 color kFgColor =128;
-String units = "";
+
 
 
 
 
   
-     kbar(String title, int xloc,int yloc,int h, int w,int rl,int rh,int starting,color bgColor,color fgColor,int mode,String u){
+     kbar(String title,String u, int xloc,int yloc,int h, int w,int rl,int rh,
+            int starting,color bgColor,color fgColor,int mode){
         ktitle =title;
+        units   = u;
         barmode  = mode;
         kheight = h;
         kwidth  = w;
@@ -49,7 +52,7 @@ String units = "";
     kx = x;
   } 
   
-void setBarWidth(int w){
+void setWidth(int w){
   kwidth = w;
 }  
 

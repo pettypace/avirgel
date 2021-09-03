@@ -1,5 +1,6 @@
 
 
+
 // Android version as of 01 September 2021
 
 String T = "VIRGEL Isn't Really GELLO";
@@ -21,12 +22,12 @@ double wtiWoundMass = 0;
 
  
 //                  kbar(title,        x,y,h,  w  ,lo,hi ,strt,bgC,fgC,mode)  
-  kbar penBar = new kbar("PENETRATION",0,0,100,500,0,100,0,0,#D12424,0," (in)"); 
-  kbar wtiBar = new kbar("WTI WOUND MASS",0,0,100,500,0,150,0,0,#D12424,0," (g)"); 
+  kbar penBar = new kbar("PENETRATION"," (in)",0,0,100,500,0,100,0,0,#D12424,0); 
+  kbar wtiBar = new kbar("WTI WOUND MASS"," (g)",0,0,100,500,0,150,0,0,#D12424,0); 
 
-  kbar vBar = new kbar("VELOCITY",0,0,100,500,400,1600,650,0,#D12424,1," (ft/s)"); 
-  kbar dBar = new kbar("DIAMETER",0,0,100,500,20,120,35,0,#D12424,1,"/100 (in)");   
-  kbar wBar = new kbar("WEIGHT",0,0,100,500,0,500,148,0,#D12424,1," (gr)"); 
+  kbar vBar = new kbar("VELOCITY"," (ft/s)",0,0,100,500,400,1600,800,0,#D12424,1); 
+  kbar dBar = new kbar("DIAMETER","/100 (in)",0,0,100,500,20,120,45,0,#D12424,1);   
+  kbar wBar = new kbar("WEIGHT"," (gr)",0,0,100,500,0,500,220,0,#D12424,1); 
 
   
 
@@ -39,32 +40,32 @@ void setup() {
   println(displayWidth,displayHeight);
   
   penBar.setLeftMargin(int(displayWidth*0.10));
-  penBar.setBarWidth(int(displayWidth*0.8));
+  penBar.setWidth(int(displayWidth*0.8));
   penBar.setY(int(displayHeight*0.18));
   penBar.setHeight(int(displayHeight*0.08));
-  penBar.setcarot(penInt);  
+ // penBar.setcarot(penInt);  
   
   
   wtiBar.setLeftMargin(int(displayWidth*0.10));
-  wtiBar.setBarWidth(int(displayWidth*0.8));
+  wtiBar.setWidth(int(displayWidth*0.8));
   wtiBar.setY(int(displayHeight*0.30));
   wtiBar.setHeight(int(displayHeight*0.08));
-  wtiBar.setcarot(wtiInt);  
+//  wtiBar.setcarot(wtiInt);  
 
   dBar.setLeftMargin(int(displayWidth*0.1));
-  dBar.setBarWidth(int(displayWidth*0.8));  
-  dBar.setY(int(displayHeight*0.60));
+  dBar.setWidth(int(displayWidth*0.8));  
+  dBar.setY(int(displayHeight*0.66));
   dBar.setHeight(int(displayHeight*0.08));  
 
 
   wBar.setLeftMargin(int(displayWidth*0.10)); 
-  wBar.setBarWidth(int(displayWidth*0.80));   
-  wBar.setY(int(displayHeight*0.75));  
+  wBar.setWidth(int(displayWidth*0.80));   
+  wBar.setY(int(displayHeight*0.76));  
   wBar.setHeight(int(displayHeight*0.08));  
 
   vBar.setLeftMargin(int(displayWidth*0.10));
-  vBar.setBarWidth(int(displayWidth*0.8));  
-  vBar.setY(int(displayHeight*0.90));  
+  vBar.setWidth(int(displayWidth*0.8));  
+  vBar.setY(int(displayHeight*0.86));  
   vBar.setHeight(int(displayHeight*0.08)); 
 
 
@@ -77,7 +78,7 @@ void setup() {
   radiobuttons.setlabel(4,"RB");
   radiobuttons.setlabel(5,"MSH "); 
   radiobuttons.setMargins(int(displayWidth*0.1),int(displayWidth*0.9));
-  radiobuttons.setY(int(displayHeight*0.48));
+  radiobuttons.setY(int(displayHeight*0.52));
 
   if(displayHeight > displayWidth) radiobuttons.setSize(int(displayHeight*0.06)); else 
      radiobuttons.setSize(int(displayHeight*0.08));   
@@ -94,7 +95,7 @@ void draw() {
 //  showBulletData(int(displayHeight * 0.10));
 //  showAllGraphTitles();
     
-    
+  
 
   reCalculate();  
 
@@ -141,12 +142,14 @@ void showAllGraphTitles(){
 
 void checkButtonValue()
 {
-    if(radiobuttons.getselection() == 0){nose="WC";alpha=0.685;phi=1.0;}
-    if(radiobuttons.getselection() == 1){nose="TC";alpha=0.735;phi=0.66;}
-    if(radiobuttons.getselection() == 2){nose="SWC";alpha=0.725;phi=0.66;}
-    if(radiobuttons.getselection() == 3){nose="RN";alpha=0.720;phi=0.66;}   
-    if(radiobuttons.getselection() == 4){nose="RB";alpha=0.745;phi=0.5;}
-    if(radiobuttons.getselection() == 5){nose="MSH";alpha=0.740;phi=0.82;}      
+  switch (radiobuttons.getselection()){
+    case 0 : nose="WC";alpha=0.685;phi=1.0;break;
+    case 1 : nose="TC";alpha=0.735;phi=0.66;break;
+    case 2 : nose="SWC";alpha=0.725;phi=0.66;break;
+    case 3 : nose="RN";alpha=0.720;phi=0.66;break;
+    case 4 : nose="RB";alpha=0.745;phi=0.5;break;
+    case 5 : nose="MSH";alpha=0.740;phi=0.82;break;
+  }    
 }  
 
   
