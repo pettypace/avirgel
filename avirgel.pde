@@ -161,7 +161,7 @@ void showWtiNotes(int Y){
   fontSize = int(displayWidth/30); 
   if(displayHeight<displayWidth) fontSize = int(displayWidth/50);
   textSize(fontSize);  
-  String data = "(Calculated for not more than 15 inches of penetration)";  
+  String data = "(Google ''WTI WOUND MASS'' for explanation)";  
   text(data,displayWidth/2,Y+2*fontSize);    
 }  
   
@@ -171,7 +171,7 @@ void  showPenNotes(int Y){
   fontSize = int(displayWidth/30);
   if(displayHeight<displayWidth) fontSize = int(displayWidth/50);
   textSize(fontSize);  
-  String data = "(FBI recommends minimum 12 inches of penetration)";  
+  String data = "(FBI requires minimum 12 inches)";  
   text(data,displayWidth/2,Y+2*fontSize);   
 } 
   
