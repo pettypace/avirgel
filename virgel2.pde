@@ -161,7 +161,7 @@ void draw() {
 
 void checkForHelp(){
   int fontSize = int(displayWidth/25);
-  if(mouseX > displayWidth*0.94 && mouseY > displayHeight*0.94){    
+  if(mouseX > displayWidth*0.90 && mouseY > displayHeight*0.93){    
     int Y=int(displayHeight*0.01); 
     fill(255);
    rect(1,1,displayWidth,displayHeight);
@@ -169,15 +169,15 @@ void checkForHelp(){
     textAlign(CENTER);
     textSize(fontSize);
     text("ABOUT VIRGEL",displayWidth/2,Y+=fontSize);
-    text("ABOUT VIRGEL",displayWidth/2+2,Y+2);    
-    text("(Tap to Return)", displayWidth/2,Y+=fontSize); 
+    text("ABOUT VIRGEL",displayWidth/2+2,Y+1);    
+//    text("(Tap to Return)", displayWidth/2,Y+=fontSize); 
     
     text("", displayWidth*0.06,Y+=fontSize); 
     
     textAlign(LEFT);  
 
     text("VIRGEL Isn't Really GELatin. It has limitations:", displayWidth*0.06,Y+=fontSize); 
-    text("VIRGEL", displayWidth*0.06+2,Y+2); 
+    text("VIRGEL", displayWidth*0.06+1,Y+1); 
     text("For example, VIRGEL can't predict bullet expansion ", displayWidth*0.06,Y+=fontSize);
     text("or deal with ''tumbling'' bullets. But VIRGEL is", displayWidth*0.06,Y+=fontSize);  
     text("cheaper than real gelatin and fits the pocket.", displayWidth*0.06,Y+=fontSize); 
@@ -186,7 +186,7 @@ void checkForHelp(){
     text("", displayWidth*0.06,Y+=fontSize); 
     
     text("VIRGEL uses a simplified ''THOR equation'' (see", displayWidth*0.06,Y+=fontSize); 
-    text("VIRGEL", displayWidth*0.06+2,Y+2);     
+    text("VIRGEL", displayWidth*0.06+1,Y+1);     
     text("Schwartz, Charles: ''Quantitative Ammunition ", displayWidth*0.06,Y+=fontSize);  
     text("Selection'', 2012) fitted to MacPherson's ", displayWidth*0.06,Y+=fontSize); 
     text("penetration modeling data (see MacPherson, ", displayWidth*0.06,Y+=fontSize);         
@@ -195,7 +195,7 @@ void checkForHelp(){
     text("", displayWidth*0.06,Y+=fontSize);   
     
     text("VIRGEL calculates self-defense wound mass using", displayWidth*0.06,Y+=fontSize);
-    text("VIRGEL", displayWidth*0.06+2,Y+2);
+    text("VIRGEL", displayWidth*0.06+1,Y+1);
     text("MacPherson's Wound Trauma Incapacitation model,", displayWidth*0.06,Y+=fontSize);     
     text("ignoring the last 3'' of penetration as too slow", displayWidth*0.06,Y+=fontSize);  
     text("and penetration beyond 15'' as too late.", displayWidth*0.06,Y+=fontSize); 
@@ -203,20 +203,20 @@ void checkForHelp(){
     text("", displayWidth*0.06,Y+=fontSize);   
     
     text("VIRGEL calculates big-game wound mass using the", displayWidth*0.06,Y+=fontSize); 
-    text("VIRGEL", displayWidth*0.06+2,Y+2);
+    text("VIRGEL", displayWidth*0.06+1,Y+1);
     text("full depth of bullet penetration.", displayWidth*0.06,Y+=fontSize);   
     
     text("", displayWidth*0.06,Y+=fontSize);  
     
     text("VIRGEL calculates kinetic energy as a possible", displayWidth*0.06,Y+=fontSize);
-    text("VIRGEL", displayWidth*0.06+2,Y+2);
+    text("VIRGEL", displayWidth*0.06+1,Y+1);
     text("indicator of barrier penetration and reports the", displayWidth*0.06,Y+=fontSize); 
     text("power factor as an indicator of recoil.", displayWidth*0.06,Y+=fontSize);  
 
     text("", displayWidth*0.06,Y+=fontSize); 
  
     text("VIRGEL is intended as a heuristic tool and makes", displayWidth*0.06,Y+=fontSize);
-    text("VIRGEL", displayWidth*0.06+2,Y+2);
+    text("VIRGEL", displayWidth*0.06+1,Y+1);
     text("no wild claims for accuracy beyond (maybe) two", displayWidth*0.06,Y+=fontSize);     
     text("significant figures. So, don't fret over not nailing", displayWidth*0.06,Y+=fontSize);     
     text("velocity to the last ft/s or weight to the last grain.", displayWidth*0.06,Y+=fontSize);    
@@ -224,15 +224,15 @@ void checkForHelp(){
     text("", displayWidth*0.06,Y+=fontSize); 
     
     text("VIRGEL was written in the free and open source", displayWidth*0.06,Y+=fontSize);
-    text("VIRGEL", displayWidth*0.06+2,Y+2);
+    text("VIRGEL", displayWidth*0.06+1,Y+1);
     text("''Processing 3'' and ''Processing for Android''", displayWidth*0.06,Y+=fontSize);     
     text("languages and is licensed under MIT's open", displayWidth*0.06,Y+=fontSize);    
-    text("source initiative ''Approved License''.", displayWidth*0.06,Y+=fontSize);  
+    text("source initiative ''Approved License.''", displayWidth*0.06,Y+=fontSize);  
     
     text("", displayWidth*0.06,Y+=fontSize); 
 
     text("VIRGEL was coded by Ross Kowalski and Robert", displayWidth*0.06,Y+=fontSize);
-    text("VIRGEL", displayWidth*0.06+2,Y+2);
+    text("VIRGEL", displayWidth*0.06+1,Y+1);
     text("Webster in their copious free time. (C) 2021.", displayWidth*0.06,Y+=fontSize);     
     text("", displayWidth*0.06,Y+=fontSize);   
     
@@ -300,11 +300,17 @@ void showTitle(int Y){
   int fontSize;
   fontSize = int(displayWidth/15);
   if(displayHeight<displayWidth) fontSize = int(displayWidth/30);
-  fill(0);
+  fill(255,0,0);
   textAlign(CENTER);  
   textSize(fontSize);
   text(T, displayWidth/2,Y);
-  text("?",displayWidth*0.98,displayHeight*0.98);
+  fill(0);
+  text(T, displayWidth/2+2,Y+2);  
+  fill(255,0,0);
+  rect(displayWidth*0.91,displayHeight*0.94,displayWidth*0.08,displayHeight*0.05,25);
+  fill(255);
+  text("?",displayWidth*0.95,displayHeight*0.98);
+  fill(0);
 }  
 
 

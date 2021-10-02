@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     setContentView(frame, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 
                                                      ViewGroup.LayoutParams.MATCH_PARENT));
     
-    sketch = new virgel2();
+    sketch = new fvirgel();
     
     PFragment fragment = new PFragment(sketch);
     fragment.setView(frame, this);

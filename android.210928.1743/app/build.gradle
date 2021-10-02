@@ -5,11 +5,11 @@ android {
        main.jni.srcDirs = []
        main.jniLibs.srcDirs = ['libs']
     }
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
-        applicationId "org.rewebster.fvirgel"
+        applicationId "org.rewebster.Virgel"
         minSdkVersion 17
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
