@@ -1,6 +1,7 @@
 class kbar{
 String ktitle = "";
 String units = "";
+String info = "";
 int barmode      = 0;
 int setting     = 0;
 int kheight     = 0;
@@ -20,10 +21,11 @@ color kFgColor =128;
 
 
   
-     kbar(String title,String u, int xloc,int yloc,int h, int w,int rl,int rh,
+     kbar(String title,String u, String i, int xloc,int yloc,int h, int w,int rl,int rh,
             int starting,color bgColor,color fgColor,int mode){
         ktitle =title;
         units   = u;
+        info    = i;
         barmode  = mode;
         kheight = h;
         kwidth  = w;
@@ -87,12 +89,14 @@ void setY(int y){
     fill(255); 
     textSize(kheight/3);
     textAlign(LEFT,CENTER);    
-    text(ktitle,kx+kwidth*0.02,ky+kheight/2);
-    
+    text(ktitle,kx+kwidth*0.02,ky+kheight/5);  
     textAlign(RIGHT,CENTER);
-
-    text(int(map(carot,0,kwidth,rangel,rangeh))+units,kx+kwidth*9/10,ky+kheight/2);
- //   text(units,kx+kheight/3,ky+kheight/2);   
+    text(int(map(carot,0,kwidth,rangel,rangeh))+units,kx+kwidth*9/10,ky+kheight/5);
+    textAlign(CENTER);
+    textSize(kheight/4);
+    text(info,kx+kwidth/2,ky+kheight*0.8);
+     
+     
    }
 
 int getval(){
