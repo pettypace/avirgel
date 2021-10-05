@@ -127,6 +127,7 @@ void draw() {
   showBulletData(int(displayHeight * bltDataY)); 
   drawInputRect();
   drawOutputRect();
+  showHelpButton();
 
 
 
@@ -161,7 +162,7 @@ void draw() {
 
 void checkForHelp(){
   int fontSize = int(displayWidth/25);
-  if(mouseX > displayWidth*0.90 && mouseY > displayHeight*0.93){    
+  if(mouseX > displayWidth*0.86 && mouseY > displayHeight*0.90){    
     int Y=int(displayHeight*0.01); 
     fill(255);
    rect(1,1,displayWidth,displayHeight);
@@ -185,12 +186,14 @@ void checkForHelp(){
         
     text("", displayWidth*0.06,Y+=fontSize); 
     
-    text("VIRGEL uses a simplified ''THOR equation'' (see", displayWidth*0.06,Y+=fontSize); 
+    text("VIRGEL estimates penetration using a simplified", displayWidth*0.06,Y+=fontSize); 
     text("VIRGEL", displayWidth*0.06+1,Y+1);     
-    text("Schwartz, Charles: ''Quantitative Ammunition ", displayWidth*0.06,Y+=fontSize);  
-    text("Selection'', 2012) fitted to MacPherson's ", displayWidth*0.06,Y+=fontSize); 
-    text("penetration modeling data (see MacPherson, ", displayWidth*0.06,Y+=fontSize);         
-    text("Duncan: ''Bullet Penetration'',1994)", displayWidth*0.06,Y+=fontSize);  
+    text("''THOR'' equation - a relic of cold-war ballistics", displayWidth*0.06,Y+=fontSize);  
+    text("research - (see ''Quantitative Ammunition Selection''", displayWidth*0.06,Y+=fontSize);
+    text("ch 9, by Charles Schwartz) fitted to data from", displayWidth*0.06,Y+=fontSize);     
+    text("Duncan MacPherson's penetration modeling (see", displayWidth*0.06,Y+=fontSize);         
+    text("MacPherson's ''Bullet Penetration'', ch. 10).", displayWidth*0.06,Y+=fontSize);  
+
     
     text("", displayWidth*0.06,Y+=fontSize);   
     
@@ -306,15 +309,20 @@ void showTitle(int Y){
   text(T, displayWidth/2,Y);
   fill(0);
   text(T, displayWidth/2+2,Y+2);  
-  fill(255,0,0);
-  rect(displayWidth*0.91,displayHeight*0.94,displayWidth*0.08,displayHeight*0.05,25);
-  fill(255);
-  text("?",displayWidth*0.95,displayHeight*0.98);
-  fill(0);
+
 }  
 
-
-
+void showHelpButton(){
+  int fontSize;
+  fontSize = int(displayWidth/15); 
+  strokeWeight(4);
+  fill(255,0,0);
+  rect(displayWidth*0.85,displayHeight*0.94,displayWidth*0.08,displayHeight*0.05,25);
+  fill(255);  
+  text("?",displayWidth*0.887,displayHeight*0.975);
+  text("?",displayWidth*0.887+1,displayHeight*0.975+1);  
+  fill(0);  
+}
 
 void  showBulletData(int Y){
   int fontSize;  

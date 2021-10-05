@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "/home/rew/sketchbook/virgel2/android/app/build/intermediates/res/merged/release/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/home/rew/sketchbook/virgel2/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/rew/sketchbook/virgel2/android/app/build/intermediates/res/merged/release/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/home/rew/sketchbook/virgel2/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/rew/sketchbook/virgel2/android/app/build/intermediates/res/merged/release/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/home/rew/sketchbook/virgel2/android/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/rew/sketchbook/virgel2/android/app/build/intermediates/res/merged/release/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/home/rew/sketchbook/virgel2/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/rew/sketchbook/virgel2/android/app/build/intermediates/res/merged/release/layout_main.xml.flat",
+        "source": "/home/rew/sketchbook/virgel2/android/app/src/main/res/layout/main.xml"
+    },
+    {
+        "merged": "/home/rew/sketchbook/virgel2/android/app/build/intermediates/res/merged/release/mipmap-ldpi_ic_launcher.png.flat",
+        "source": "/home/rew/sketchbook/virgel2/android/app/src/main/res/mipmap-ldpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/rew/sketchbook/virgel2/android/app/build/intermediates/res/merged/release/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/home/rew/sketchbook/virgel2/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+    }
+]

@@ -1,0 +1,9 @@
+org/rewebster/fvirgel/MainActivity.java
+ org.rewebster.fvirgel.MainActivity
+org/rewebster/fvirgel/virgel2.java
+ org.rewebster.fvirgel.virgel2
+ org.rewebster.fvirgel.virgel2$kbar
+ org.rewebster.fvirgel.virgel2$kradiobutton
+ org.rewebster.fvirgel.virgel2$kradiobuttons
+org/rewebster/fvirgel/BuildConfig.java
+ org.rewebster.fvirgel.BuildConfig

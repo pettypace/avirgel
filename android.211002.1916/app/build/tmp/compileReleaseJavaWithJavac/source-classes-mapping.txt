@@ -1,0 +1,9 @@
+processing/test/virgel2/BuildConfig.java
+ processing.test.virgel2.BuildConfig
+processing/test/virgel2/virgel2.java
+ processing.test.virgel2.virgel2
+ processing.test.virgel2.virgel2$kbar
+ processing.test.virgel2.virgel2$kradiobutton
+ processing.test.virgel2.virgel2$kradiobuttons
+processing/test/virgel2/MainActivity.java
+ processing.test.virgel2.MainActivity
