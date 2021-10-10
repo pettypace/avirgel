@@ -35,10 +35,7 @@ color kFgColor =128;
         rangeh  = rh;
         kBgColor    = bgColor;
         kFgColor    = fgColor;
-        units   = u;
-        
-  
-        carot   = int(map(starting,rangel,rangeh,0,kwidth));
+        carot   = (int)Math.round(map(starting,rangel,rangeh,0,kwidth));
   }
   
   void setTitle(String t){
@@ -47,7 +44,7 @@ color kFgColor =128;
   
   
   void setcarot(int cval){
-      carot = int(map(cval,rangel,rangeh,0,kwidth));;
+      carot = (int) Math.round(map(cval,rangel,rangeh,0,kwidth));
   }
   
  void setLeftMargin(int x){
@@ -91,8 +88,8 @@ void setY(int y){
     textAlign(LEFT,CENTER);    
     text(ktitle,kx+kwidth*0.02,ky+kheight/5);  
     textAlign(RIGHT,CENTER);
-//    text(int(map(carot,0,kwidth,rangel,rangeh))+units,kx+kwidth*9/10,ky+kheight/5);
-    text(int(map(carot,0,kwidth,rangel,rangeh))+units,kx+kwidth*0.95,ky+kheight/5);
+//    text((int)Math.round(map(carot,0,kwidth,rangel,rangeh))+units,kx+kwidth*9/10,ky+kheight/5);
+    text((int)Math.round(map(carot,0,kwidth,rangel,rangeh))+units,kx+kwidth*0.95,ky+kheight/5);
     textAlign(CENTER);
     textSize(kheight/4);
     text(info,kx+kwidth/2,ky+kheight*0.8);
@@ -101,7 +98,7 @@ void setY(int y){
    }
 
 int getval(){
-   return int(map(carot,0,kwidth,rangel,rangeh));
+   return (int)Math.round(map(carot,0,kwidth,rangel,rangeh));
 }
 
 }
