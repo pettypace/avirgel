@@ -88,7 +88,6 @@ void setY(int y){
     textAlign(LEFT,CENTER);    
     text(ktitle,kx+kwidth*0.02,ky+kheight/5);  
     textAlign(RIGHT,CENTER);
-//    text((int)Math.round(map(carot,0,kwidth,rangel,rangeh))+units,kx+kwidth*9/10,ky+kheight/5);
     text((int)Math.round(map(carot,0,kwidth,rangel,rangeh))+units,kx+kwidth*0.95,ky+kheight/5);
     textAlign(CENTER);
     textSize(kheight/4);

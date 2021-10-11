@@ -14,74 +14,76 @@ float wgtBarY    = 0.710;
 float velBarY    = 0.810;
 
 
+Bullet curBlt;
+Bullet memBlt;
+Bullet hldBlt;
 
+kbar penBar;
+kbar bgBar;
+kbar wtiBar;
+kbar vBar;
+kbar dBar;
+kbar wBar;
 
-Bullet curBlt = new Bullet("",0, 35, 148, 650);
-Bullet memBlt = new Bullet("",3, 45, 230, 820);
-Bullet hldBlt = new Bullet("",5, 41, 105, 940);
-
-
-
-//                  kbar(title,units,info,x,y,h,w lo,hi,strt,bgC,fgC,mode)  
-kbar penBar = new kbar("Penetration:", 
-  " (in)", 
-  "(bare 10% ordnance gelatin)", 
-  0, 0, 100, 500, 0, 100, 0, 0, #D12424, 0); 
-
-kbar wtiBar = new kbar("Defense Wound Mass:", 
-  " (g)", 
-  "(per MacPherson WTI model)", 
-  0, 0, 100, 500, 0, 150, 0, 0, #D12424, 0); 
-
-kbar bgBar = new kbar("Big Game Wound Mass:", 
-  " (g)", 
-  "(for entire penetration path)", 
-  0, 0, 100, 500, 0, 150, 0, 0, #D12424, 0); 
+kradiobuttons radiobuttons;
 
 
 
-kbar vBar = new kbar("Velocity:", " (ft/s)", "", 0, 0, 100, 500, 400, 1600, curBlt.getVelocity(), 0, #D12424, 1); 
-kbar dBar = new kbar("Diameter:", "/100 (in)", "", 0, 0, 100, 500, 20, 120, curBlt.getDiameter(), 0, #D12424, 1);   
-kbar wBar = new kbar("Weight:", " (gr)", "", 0, 0, 100, 500, 0, 500, curBlt.getWeight(), 0, #D12424, 1); 
 
 
 
-//                                                (nb,bh,bw,leftmar,rightmar,yloc,onClr,offClr,lblClr) 
-kradiobuttons  radiobuttons =   new kradiobuttons(6, 60, 60, 60, 600, 0, 0, #D12424, 255);
 
 void setup() {
+  
   orientation(PORTRAIT);
   size(displayWidth, displayHeight);  
   
-  penBar.setLeftMargin(int(displayWidth*0.10));
-  penBar.setWidth(int(displayWidth*0.8));
-  penBar.setY(int(displayHeight*penBarY));
-  penBar.setHeight(int(displayHeight*0.08));
+  curBlt = new Bullet("38 Target WC",0,35,148,650);
+  memBlt = new Bullet("45 GI Hardball",3,45,230,820);
+  hldBlt = new Bullet("32 ACP XTP",5,41,100,940);  
+  
+  
+  vBar = new kbar("Velocity:", " (ft/s)", "", 
+                  int(displayWidth*0.10),
+                  int(displayHeight*velBarY),
+                  int(displayHeight*0.08),
+                  int(displayWidth*0.8), 400, 1600, curBlt.getVelocity(), 0, #D12424, 1); 
+ 
+  dBar = new kbar("Diameter:", "/100 (in)", "",
+                  int(displayWidth*0.10),
+                  int(displayHeight*diaBarY),
+                  int(displayHeight*0.08),  
+                  int(displayWidth*0.8), 20, 120,curBlt.getDiameter(), 0, #D12424, 1); 
+  
+  wBar = new kbar("Weight:", " (gr)", "",
+                  int(displayWidth*0.10), 
+                  int(displayHeight*wgtBarY), 
+                  int(displayHeight*0.08), 
+                  int(displayWidth*0.80), 0, 500, curBlt.getWeight(), 0, #D12424, 1);   
+ 
+  penBar = new kbar("Penetration:"," (in)","(bare 10% ordnance gelatin)",
+                     int(displayWidth*0.10),
+                     int(displayHeight*penBarY),
+                     int(displayHeight*0.08),
+                     int(displayWidth*0.8),0,100,curBlt.getPen(),0,#D12424, 0);                      
+                                  
+  wtiBar = new kbar("Defense Wound Mass:"," (g)","(per MacPherson WTI model)", 
+                     int(displayWidth*0.10), 
+                     int(displayHeight*wtiBarY), 
+                     int(displayHeight*0.08),
+                     int(displayWidth*0.8), 0, 150, curBlt.getWtiMass(), 0, #D12424, 0); 
+ 
+  
+  bgBar = new kbar("Big Game Wound Mass:"," (g)","(for entire penetration path)", 
+                    int(displayWidth*0.10), 
+                    int(displayHeight*bgBarY), 
+                    int(displayHeight*0.08), 
+                    int(displayWidth*0.8), 0, 150, curBlt.getBgMass(), 0, #D12424, 0);   
 
-  wtiBar.setLeftMargin(int(displayWidth*0.10));
-  wtiBar.setWidth(int(displayWidth*0.8));
-  wtiBar.setY(int(displayHeight*wtiBarY));
-  wtiBar.setHeight(int(displayHeight*0.08));
+  
+  //                                                (act,nb,bh,bw,leftmar,rightmar,yloc,onClr,offClr,lblClr) 
+  radiobuttons =   new kradiobuttons(curBlt.getNose(),6, 60, 60, 60, 600, 0, 0, #D12424, 255);
 
-  bgBar.setLeftMargin(int(displayWidth*0.10));
-  bgBar.setWidth(int(displayWidth*0.8));
-  bgBar.setY(int(displayHeight*bgBarY));
-  bgBar.setHeight(int(displayHeight*0.08));
-
-  dBar.setLeftMargin(int(displayWidth*0.1));
-  dBar.setWidth(int(displayWidth*0.8));  
-  dBar.setY(int(displayHeight*diaBarY));
-  dBar.setHeight(int(displayHeight*0.08));  
-
-  wBar.setLeftMargin(int(displayWidth*0.10)); 
-  wBar.setWidth(int(displayWidth*0.80));   
-  wBar.setY(int(displayHeight*wgtBarY));  
-  wBar.setHeight(int(displayHeight*0.08));  
-
-  vBar.setLeftMargin(int(displayWidth*0.10));
-  vBar.setWidth(int(displayWidth*0.8));  
-  vBar.setY(int(displayHeight*velBarY));  
-  vBar.setHeight(int(displayHeight*0.08)); 
 
   radiobuttons.setlabel(0, "WC");
   radiobuttons.setlabel(1, "TC");
@@ -103,15 +105,17 @@ void draw() {
 
   background(255);  
   showTitle(int(displayHeight*titleY));
-  showBulletData(int(displayHeight * bltDataY));  
+ 
   drawInputRect();
   drawOutputRect();
-  showHelpButton();
-
+  showBottomButtons();
+  showBulletData(int(displayHeight * bltDataY)); 
   dBar.update();
   vBar.update();
   wBar.update();
 
+//  memBlt = curBlt;
+  updateBullet(curBlt);
 
 
   penBar.setcarot(curBlt.getPen());  
@@ -123,33 +127,40 @@ void draw() {
   bgBar.setcarot(curBlt.getBgMass());  
   bgBar.update(); 
 
+
   radiobuttons.update();
 
-  getNoseParams();
 
-  curBlt.diameter = dBar.getval();
-  curBlt.weight = wBar.getval();
-  curBlt.velocity = vBar.getval();
-
-//  checkMemory();
+  checkMemory();
 
   checkForHelp();
+  
 }
+
+void updateBullet(Bullet aBullet){
+  aBullet.setNose(radiobuttons.getselection());
+  aBullet.setDiameter(dBar.getval());
+  aBullet.setWeight(wBar.getval());
+  aBullet.setVelocity(vBar.getval());
+}  
+
 
 
 void checkMemory() {
-  if (mouseX < displayWidth*0.14 && mouseY > displayHeight*0.90) {  
+  if (mouseX < displayWidth*0.14 && mouseY > displayHeight*0.90&& mousePressed == true) {  
     noLoop();
-    curBlt.diameter = dBar.getval();
-    curBlt.weight = wBar.getval();
-    curBlt.velocity = vBar.getval(); 
+//    curBlt.diameter = dBar.getval();
+//    curBlt.weight = wBar.getval();
+//    curBlt.velocity = vBar.getval(); 
     
-    vBar.setcarot(memBlt.velocity);
+    vBar.setcarot(memBlt.getVelocity());
     vBar.update();
-    dBar.setcarot(memBlt.diameter);
+    dBar.setcarot(memBlt.getDiameter());
     dBar.update();
-    wBar.setcarot(memBlt.weight);
+    wBar.setcarot(memBlt.getWeight());
     wBar.update();
+    radiobuttons.setSelection(memBlt.getNose());
+    radiobuttons.update();
 
     hldBlt = curBlt;  
     curBlt = memBlt;
@@ -267,20 +278,6 @@ void drawOutputRect() {
 
 
 
-void getNoseParams()
-{
-  switch (radiobuttons.getselection()) {
-  case 0 : curBlt.setNose(0); break;
-  case 1 : curBlt.setNose(1); break;
-  case 2 : curBlt.setNose(2); break;
-  case 3 : curBlt.setNose(3); break;
-  case 4 : curBlt.setNose(4); break;
-  case 5 : curBlt.setNose(5); break;
-  }
-}  
-
-
-
 
 void showTitle(int Y) {
   int fontSize;
@@ -294,17 +291,31 @@ void showTitle(int Y) {
   text(T, displayWidth/2+2, Y+2);
 }  
 
-void showHelpButton() {
+void showBottomButtons() {
   int fontSize;
   fontSize = int(displayWidth/15); 
   strokeWeight(4);
   fill(255, 0, 0);
   rect(displayWidth*0.85, displayHeight*0.94, displayWidth*0.08, displayHeight*0.05, 25);
   fill(255);  
-  text("?", displayWidth*0.887, displayHeight*0.975);
-  text("?", displayWidth*0.887+1, displayHeight*0.975+1);  
+  text("?", displayWidth*0.887, displayHeight*0.978);
+  text("?", displayWidth*0.887+1, displayHeight*0.978+1);  
+  fill(255, 0, 0);
+  rect(displayWidth*0.06, displayHeight*0.94, displayWidth*0.08, displayHeight*0.05, 25);
+  fill(255);  
+  text("M", displayWidth*0.100, displayHeight*0.978);
+  text("M", displayWidth*0.025+1, displayHeight*0.978+1);  
   fill(0);
 }
+
+
+
+
+
+
+
+
+
 
 void  showBulletData(int Y) {
   int V = curBlt.velocity;

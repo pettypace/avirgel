@@ -1,5 +1,6 @@
 class kradiobuttons{
 
+  int active = 0;
   int numbuttons = 0;
   int leftmargin = 0;
   int rightmargin = 0;
@@ -8,9 +9,10 @@ class kradiobuttons{
   int buttonwidth  =0;
   int xspacing =0; 
   kradiobutton[] buttonlist; 
-  int active = 0;
+
   
-   kradiobuttons(int nb,int bh,int bw,int leftmar,int rightmar,int yloc,color onClr,color offClr,color lblClr){
+   kradiobuttons(int act, int nb,int bh,int bw,int leftmar,int rightmar,int yloc,color onClr,color offClr,color lblClr){
+       active       = act;
        numbuttons   = nb;
        buttonheight = bh;
        buttonwidth  = bw;
@@ -21,6 +23,7 @@ class kradiobuttons{
        buttonlist = new kradiobutton[numbuttons];
         for (int q = 0; q < buttonlist.length; q++) {
             buttonlist[q] = new kradiobutton(leftmargin+(xspacing*q),ylocation,bh,bw,onClr,offClr,lblClr);
+  //          buttonlist[act].on();
         }  
         
     }
