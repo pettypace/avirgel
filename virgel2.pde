@@ -14,6 +14,8 @@ float wgtBarY    = 0.710;
 float velBarY    = 0.810;
 
 
+//Bullet[] bullets;
+
 Bullet curBlt;
 Bullet memBlt;
 Bullet hldBlt;
@@ -37,6 +39,13 @@ void setup() {
   
   orientation(PORTRAIT);
   size(displayWidth, displayHeight);  
+  
+//  bullets[0] = new Bullet("22 LR HP",5,38,37,1272);
+//  bullets[1] = new Bullet("FBI Load",5,59,158,880);
+//  bullets[2] = new Bullet("38 Target WC",0,35,148,650);
+//  bullets[3] = new Bullet("45 ACP FMJ",4,45,230,820);
+//  bullets[4] = new Bullet("12 ga Slug",5,110,437,1513);  
+  
   
   curBlt = new Bullet("38 Target WC",0,35,148,650);
   memBlt = new Bullet("45 GI Hardball",3,45,230,820);
@@ -147,18 +156,25 @@ void updateBullet(Bullet aBullet){
 
 
 void checkMemory() {
-  if (mouseX < displayWidth*0.14 && mouseY > displayHeight*0.90&& mousePressed == true) {  
+  if (mouseX < displayWidth*0.39 && mouseY > displayHeight*0.90 && mousePressed == true) {  
+//  if (mouseX < displayWidth*0.39 && mouseY > displayHeight*0.90 ) { 
     noLoop();
-//    curBlt.diameter = dBar.getval();
-//    curBlt.weight = wBar.getval();
-//    curBlt.velocity = vBar.getval(); 
-    
     vBar.setcarot(memBlt.getVelocity());
     vBar.update();
     dBar.setcarot(memBlt.getDiameter());
     dBar.update();
     wBar.setcarot(memBlt.getWeight());
     wBar.update();
+    
+    penBar.setcarot(memBlt.getPen());  
+    penBar.update();
+
+    wtiBar.setcarot(memBlt.getWtiMass());  
+    wtiBar.update(); 
+
+    bgBar.setcarot(memBlt.getBgMass());  
+    bgBar.update();     
+    
     radiobuttons.setSelection(memBlt.getNose());
     radiobuttons.update();
 
@@ -176,16 +192,16 @@ void mouseReleased() {
 
 void checkForHelp() {
   int fontSize = int(displayWidth/25);
-  if (mouseX > displayWidth*0.86 && mouseY > displayHeight*0.90) {    
+  if (mouseX > displayWidth*0.58 && mouseY > displayHeight*0.90 && mousePressed == true) {
+    noLoop();
     int Y=int(displayHeight*0.01); 
     fill(255);
     rect(1, 1, displayWidth, displayHeight);
     fill(0);
     textAlign(CENTER);
     textSize(fontSize);
-    text("ABOUT VIRGEL", displayWidth/2, Y+=fontSize);
-    text("ABOUT VIRGEL", displayWidth/2+2, Y+1);    
-    //    text("(Tap to Return)", displayWidth/2,Y+=fontSize); 
+    text("About VIRGEL", displayWidth/2, Y+=fontSize);
+    text("About VIRGEL", displayWidth/2+2, Y+1);    
 
     text("", displayWidth*0.06, Y+=fontSize); 
 
@@ -291,26 +307,24 @@ void showTitle(int Y) {
   text(T, displayWidth/2+2, Y+2);
 }  
 
-void showBottomButtons() {
+
+
+
+void showBottomButtons() { 
   int fontSize;
-  fontSize = int(displayWidth/15); 
+  float x = 0.0357;
+  fontSize = int(displayWidth/25); 
+  textSize(fontSize);
   strokeWeight(4);
-  fill(255, 0, 0);
-  rect(displayWidth*0.85, displayHeight*0.94, displayWidth*0.08, displayHeight*0.05, 25);
+  fill(#D12424);
+  rect(displayWidth*x*2,displayHeight*0.93,displayWidth*9*x,displayHeight*0.04,50);
+  rect(displayWidth*x*17,displayHeight*0.93,displayWidth*9*x,displayHeight*0.04,50);  
+ 
   fill(255);  
-  text("?", displayWidth*0.887, displayHeight*0.978);
-  text("?", displayWidth*0.887+1, displayHeight*0.978+1);  
-  fill(255, 0, 0);
-  rect(displayWidth*0.06, displayHeight*0.94, displayWidth*0.08, displayHeight*0.05, 25);
-  fill(255);  
-  text("M", displayWidth*0.100, displayHeight*0.978);
-  text("M", displayWidth*0.025+1, displayHeight*0.978+1);  
-  fill(0);
+  text("Memo<>Screen", displayWidth*x*6.5, displayHeight*0.96);
+  text("About VIRGEL", displayWidth*x*21.5, displayHeight*0.96);   
+ fill(0);
 }
-
-
-
-
 
 
 
@@ -321,9 +335,7 @@ void  showBulletData(int Y) {
   int V = curBlt.velocity;
   int W = curBlt.weight;
   int D = curBlt.diameter;
-  String N = curBlt.getShape();
-
-  
+  String N = curBlt.getShape();  
   int fontSize;  
   fontSize = int(displayWidth/20);
   if (displayHeight<displayWidth) fontSize = int(displayWidth/50);
